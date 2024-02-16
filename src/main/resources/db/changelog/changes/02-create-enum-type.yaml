@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-role-enum-type
+      author: antonbabych
+      changes:
+        - sql:
+            sql: CREATE TYPE role_type AS ENUM ('ROLE_ADMIN');
