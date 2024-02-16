@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-default-admin
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "antonbabi13@gmail.com"
+              - column:
+                  name: password
+                  value: "$2a$10$jTBXk4UqFSqL4VNSRQqkseplX8Z3SthyZcjLniC5JHIViNTcm7fia"
+              - column:
+                  name: deleted
+                  value: 0
+  - changeSet:
+      id: add-role-to-admin
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  valueNumeric: 1

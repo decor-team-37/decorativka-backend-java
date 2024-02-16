@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changes/04-add-admin-role-to-roles-table.yaml
   - include:
       file: db/changelog/changes/05-create-users-roles-table.yaml
+  - include:
+      file: db/changelog/changes/06-create-default-admin-user.yaml
