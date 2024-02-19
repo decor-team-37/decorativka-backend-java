@@ -11,3 +11,9 @@ databaseChangeLog:
       file: db/changelog/changes/05-create-users-roles-table.yaml
   - include:
       file: db/changelog/changes/06-create-default-admin-user.yaml
+  - include:
+      file: db/changelog/changes/07-create-products-table.yaml
+  - include:
+      file: db/changelog/changes/08-create-categories-table.yaml
+  - include:
+      file: db/changelog/changes/09-create-products-categories-table.yaml
