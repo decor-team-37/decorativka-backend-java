@@ -46,3 +46,20 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
+  - changeSet:
+      id: create-product-images-table
+      author: antonbabych
+      changes:
+        - createTable:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_images_product_id
+                    references: products(id)
+              - column:
+                  name: image_url
+                  type: varchar(1024)
