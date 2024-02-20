@@ -8,14 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,14 +25,10 @@ public class Product {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToMany
+    @ManyToOne
     @EqualsAndHashCode.Exclude
-    @JoinTable(
-            name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> category = new HashSet<>();
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
     private String country;
     private String producer;
     private String collection;

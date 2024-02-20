@@ -46,6 +46,13 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_products_category_id
+                    references: categories(id)
   - changeSet:
       id: create-product-images-table
       author: antonbabych
