@@ -17,3 +17,5 @@ databaseChangeLog:
       file: db/changelog/changes/08-create-categories-table.yaml
   - include:
       file: db/changelog/changes/09-create-products-categories-table.yaml
+  - include:
+      file: db/changelog/changes/10-create-offers-table.yaml

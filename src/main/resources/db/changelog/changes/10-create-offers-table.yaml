@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-offers-table
+      author: antonbabych
+      changes:
+        - createTable:
+            tableName: offers
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(1024)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create-offer-images-table
+      author: antonbabych
+      changes:
+        - createTable:
+            tableName: offer_images
+            columns:
+              - column:
+                  name: offer_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_offer_images_offer_id
+                    references: offers(id)
+              - column:
+                  name: image_url
+                  type: varchar(1024)
