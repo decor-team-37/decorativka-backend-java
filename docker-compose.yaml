@@ -30,6 +30,7 @@ services:
         "spring.datasource.driver-class-name" : "org.postgresql.Driver",
         "spring.jpa.hibernate.ddl-aut" : "validate",
         "spring.jpa.show-sql" : "true",
+        "server.servlet.context-path" : "/api",
         "jwt.expiration" : "$JWT_EXPIRATION_TIME",
         "jwt_secret" : "$JWT_SECRET"
         }'
