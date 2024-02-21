@@ -1,0 +1,185 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-sample-products
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Product 1
+              - column:
+                  name: country
+                  value: Country 1
+              - column:
+                  name: price
+                  value: 10.00
+              - column:
+                  name: producer
+                  value: Producer 1
+              - column:
+                  name: collection
+                  value: Collection 1
+              - column:
+                  name: tone
+                  value: Tone 1
+              - column:
+                  name: type
+                  value: Type 1
+              - column:
+                  name: room
+                  value: Room 1
+              - column:
+                  name: description
+                  value: Description for Product 1
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Product 2
+              - column:
+                  name: country
+                  value: Country 2
+              - column:
+                  name: price
+                  value: 12.00
+              - column:
+                  name: producer
+                  value: Producer 2
+              - column:
+                  name: collection
+                  value: Collection 2
+              - column:
+                  name: tone
+                  value: Tone 2
+              - column:
+                  name: type
+                  value: Type 2
+              - column:
+                  name: room
+                  value: Room 2
+              - column:
+                  name: description
+                  value: Description for Product 2
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Product 3
+              - column:
+                  name: country
+                  value: Country 1
+              - column:
+                  name: price
+                  value: 99.99
+              - column:
+                  name: producer
+                  value: Producer 2
+              - column:
+                  name: collection
+                  value: Collection 2
+              - column:
+                  name: tone
+                  value: Tone 3
+              - column:
+                  name: type
+                  value: Type 3
+              - column:
+                  name: room
+                  value: Room 3
+              - column:
+                  name: description
+                  value: Description for Product 3
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Product 4
+              - column:
+                  name: country
+                  value: Country 2
+              - column:
+                  name: price
+                  value: 15.00
+              - column:
+                  name: producer
+                  value: Producer 2
+              - column:
+                  name: collection
+                  value: Collection 2
+              - column:
+                  name: tone
+                  value: Tone 2
+              - column:
+                  name: type
+                  value: Type 2
+              - column:
+                  name: room
+                  value: Room 2
+              - column:
+                  name: description
+                  value: Description for Product 4
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Product 5
+              - column:
+                  name: country
+                  value: Country 1
+              - column:
+                  name: price
+                  value: 199.99
+              - column:
+                  name: producer
+                  value: Producer 2
+              - column:
+                  name: collection
+                  value: Collection 2
+              - column:
+                  name: tone
+                  value: Tone 3
+              - column:
+                  name: type
+                  value: Type 3
+              - column:
+                  name: room
+                  value: Room 3
+              - column:
+                  name: description
+                  value: Description for Product 5
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1

@@ -1,6 +1,7 @@
 package teamproject.decorativka.dto.product;
 
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 public record ProductCreateRequestDto(
@@ -8,6 +9,8 @@ public record ProductCreateRequestDto(
         String name,
         @NotNull
         Long categoryId,
+        @NotNull
+        BigDecimal price,
         String country,
         String producer,
         String collection,

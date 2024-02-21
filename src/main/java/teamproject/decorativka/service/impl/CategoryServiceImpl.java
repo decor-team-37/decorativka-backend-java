@@ -3,6 +3,7 @@ package teamproject.decorativka.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import teamproject.decorativka.dto.category.CategoryCreateRequestDto;
 import teamproject.decorativka.dto.category.CategoryResponseDto;
@@ -23,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryResponseDto> getAllCategories() {
-        return categoryRepository.getAllByDeletedFalse().stream()
+    public List<CategoryResponseDto> getAllCategories(Pageable pageable) {
+        return categoryRepository.getAllByDeletedFalse(pageable).stream()
                 .map(categoryMapper::toDto)
                 .toList();
     }

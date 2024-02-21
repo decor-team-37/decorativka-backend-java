@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-categories
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Category 1"
+              - column:
+                  name: description
+                  value: "Description for Category 1"
+              - column:
+                  name: deleted
+                  value: false
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Category 2"
+              - column:
+                  name: description
+                  value: "Description for Category 2"
+              - column:
+                  name: deleted
+                  value: false

@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -29,6 +30,8 @@ public class Product {
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+    @Column(nullable = false)
+    private BigDecimal price;
     private String country;
     private String producer;
     private String collection;
