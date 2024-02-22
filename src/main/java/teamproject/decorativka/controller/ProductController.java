@@ -33,6 +33,7 @@ public class ProductController {
         return productService.getAllProducts(pageable);
     }
 
+    @Operation(summary = "Get one specific product by id")
     @GetMapping("/{id}")
     public ProductResponseDto getProduct(@PathVariable Long id) {
         return productService.getProduct(id);

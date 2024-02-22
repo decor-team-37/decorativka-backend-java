@@ -10,29 +10,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import teamproject.decorativka.dto.category.CategoryResponseDto;
-import teamproject.decorativka.service.CategoryService;
+import teamproject.decorativka.dto.offer.OfferResponseDto;
+import teamproject.decorativka.service.OfferService;
 
-@Tag(name = "Categories manager")
-@RestController
+@Tag(name = "Offers (Services) manager",
+        description = "Endpoint to get info about offers (services)")
 @RequiredArgsConstructor
-@RequestMapping("/v1/categories")
-public class CategoryController {
-    private final CategoryService categoryService;
+@RestController
+@RequestMapping("/v1/offers")
+public class OfferController {
+    private final OfferService offerService;
 
-    @Operation(summary = "Get all categories",
-            description = "Get list of all not deleted categories")
+    @Operation(summary = "Get one specific offer (service) by id")
+    @GetMapping("/{id}")
+    public OfferResponseDto getOfferById(@PathVariable Long id) {
+        return offerService.getOfferById(id);
+    }
+
+    @Operation(summary = "Get all offers (services)",
+            description = "Get list of all not deleted offers")
     @Parameter(name = "page", description = "open specified page, default value = 0",
             required = true, example = "0")
     @Parameter(name = "size", description = "describes count element per page",
             required = true, example = "10")
     @GetMapping
-    public List<CategoryResponseDto> getAllCategories(Pageable pageable) {
-        return categoryService.getAllCategories(pageable);
-    }
-
-    @GetMapping("/{id}")
-    public CategoryResponseDto getCategory(@PathVariable Long id) {
-        return categoryService.getCategory(id);
+    public List<OfferResponseDto> getAllOffers(Pageable pageable) {
+        return offerService.getAllOffers(pageable);
     }
 }
