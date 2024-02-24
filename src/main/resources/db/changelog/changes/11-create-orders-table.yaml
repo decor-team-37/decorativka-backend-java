@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-table
+      author: antonbabych
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar(255)
+              - column:
+                  name: shipping_address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comment
+                  type: varchar(1024)
+              - column:
+                  name: order_status
+                  type: order_status
+              - column:
+                  name: total
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  value: 0
