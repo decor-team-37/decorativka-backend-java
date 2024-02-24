@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-status-type
+      author: antonbabych
+      changes:
+        - sql:
+            sql: CREATE TYPE order_status AS ENUM ('COMPLETED', 'PENDING', 'DELIVERED', 'PROCESSING');
