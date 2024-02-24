@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import teamproject.decorativka.model.Order;
 
-public record OrderDto(
+public record OrderResponseDto(
         Long id,
         String firstName,
         String lastName,
@@ -17,6 +17,6 @@ public record OrderDto(
         String comment,
         BigDecimal total,
         LocalDateTime orderDate,
-        List<OrderItemDto> orderItems
+        List<OrderItemResponseDto> orderItems
 ) {
 }
