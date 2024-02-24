@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-offers
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: offers
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Special Offer 1"
+              - column:
+                  name: description
+                  value: "Description of Special Offer 1"
+              - column:
+                  name: deleted
+                  value: false
+        - insert:
+            tableName: offers
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Special Offer 2"
+              - column:
+                  name: description
+                  value: "Description of Special Offer 2"
+              - column:
+                  name: deleted
+                  value: false
+        - insert:
+            tableName: offers
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Special Offer 3"
+              - column:
+                  name: description
+                  value: "Description of Special Offer 3"
+              - column:
+                  name: deleted
+                  value: false
+  - changeSet:
+      id: insert-offer-images
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: offer_images
+            columns:
+              - column:
+                  name: offer_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://example.com/image1.jpg"
+        - insert:
+            tableName: offer_images
+            columns:
+              - column:
+                  name: offer_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://example.com/image2.jpg"
+        - insert:
+            tableName: offer_images
+            columns:
+              - column:
+                  name: offer_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://example.com/image3.jpg"
