@@ -54,15 +54,20 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(productToDelete);
     }
 
-    private Category resolveCategory(Long id) {
-        return categoryRepository.findByIdAndDeletedFalse(id).orElseThrow(
-                () -> new EntityNotFoundException("Can't find category with id: " + id)
-        );
+    @Override
+    public List<Product> getAllByIds(List<Long> ids) {
+        return productRepository.getAllByIdInAndDeletedFalse(ids);
     }
 
     private Product getProductById(Long id) {
         return productRepository.findByIdAndDeletedFalse(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find product with id: " + id)
+        );
+    }
+
+    private Category resolveCategory(Long id) {
+        return categoryRepository.findByIdAndDeletedFalse(id).orElseThrow(
+                () -> new EntityNotFoundException("Can't find category with id: " + id)
         );
     }
 }
