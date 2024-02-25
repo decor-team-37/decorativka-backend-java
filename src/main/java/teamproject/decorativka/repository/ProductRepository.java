@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getAllByDeletedFalse(Pageable pageable);
 
     Optional<Product> findByIdAndDeletedFalse(Long id);
+
+    List<Product> getAllByIdInAndDeletedFalse(List<Long> id);
 }

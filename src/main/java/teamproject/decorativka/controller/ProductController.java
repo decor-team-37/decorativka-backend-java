@@ -36,6 +36,6 @@ public class ProductController {
     @Operation(summary = "Get one specific product by id")
     @GetMapping("/{id}")
     public ProductResponseDto getProduct(@PathVariable Long id) {
-        return productService.getProductDto(id);
+        return productService.getProduct(id);
     }
 }

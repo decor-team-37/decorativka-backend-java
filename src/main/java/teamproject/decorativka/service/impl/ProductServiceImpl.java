@@ -36,26 +36,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto getProductDto(Long id) {
-        return productMapper.toDto(getProduct(id));
+    public ProductResponseDto getProduct(Long id) {
+        return productMapper.toDto(getProductById(id));
     }
 
     @Override
     public ProductResponseDto updateProduct(Long id, ProductCreateRequestDto requestDto) {
-        Product productToUpdate = getProduct(id);
+        Product productToUpdate = getProductById(id);
         productMapper.updateProductFromDto(requestDto, productToUpdate);
         return productMapper.toDto(productRepository.save(productToUpdate));
     }
 
     @Override
     public void deleteProduct(Long id) {
-        Product productToDelete = getProduct(id);
+        Product productToDelete = getProductById(id);
         productToDelete.setDeleted(true);
         productRepository.save(productToDelete);
     }
 
     @Override
-    public Product getProduct(Long id) {
+    public List<Product> getAllByIds(List<Long> ids) {
+        return productRepository.getAllByIdInAndDeletedFalse(ids);
+    }
+
+    private Product getProductById(Long id) {
         return productRepository.findByIdAndDeletedFalse(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find product with id: " + id)
         );

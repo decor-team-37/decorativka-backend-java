@@ -11,11 +11,11 @@ public interface ProductService {
 
     List<ProductResponseDto> getAllProducts(Pageable pageable);
 
-    ProductResponseDto getProductDto(Long id);
-
-    Product getProduct(Long id);
+    ProductResponseDto getProduct(Long id);
 
     ProductResponseDto updateProduct(Long id, ProductCreateRequestDto requestDto);
 
     void deleteProduct(Long id);
+
+    List<Product> getAllByIds(List<Long> ids);
 }
