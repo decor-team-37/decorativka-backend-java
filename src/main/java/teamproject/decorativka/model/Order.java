@@ -2,6 +2,8 @@ package teamproject.decorativka.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -32,12 +35,14 @@ public class Order {
     @Column(nullable = false)
     private String phoneNumber;
     private String comment;
-    private Status status;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    private Status status;
     private BigDecimal total;
     @Column(nullable = false)
     private LocalDateTime orderDate;
     @OneToMany(mappedBy = "order")
+    @EqualsAndHashCode.Exclude
     private Set<OrderItem> orderItems = new HashSet<>();
     @Column(nullable = false)
     private boolean deleted = false;
