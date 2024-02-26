@@ -45,13 +45,13 @@ databaseChangeLog:
                   name: comment
                   type: varchar(1024)
               - column:
-                  name: order_status
-                  type: order_status
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: total
                   type: decimal
-                  constraints:
-                    nullable: false
               - column:
                   name: order_date
                   type: datetime
@@ -61,3 +61,5 @@ databaseChangeLog:
                   name: deleted
                   type: boolean
                   value: 0
+                  constraints:
+                    nullable: false

@@ -19,6 +19,7 @@ import teamproject.decorativka.mapper.OrderMapper;
 import teamproject.decorativka.model.Order;
 import teamproject.decorativka.model.OrderItem;
 import teamproject.decorativka.model.Product;
+import teamproject.decorativka.repository.OrderItemRepository;
 import teamproject.decorativka.repository.OrderRepository;
 import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
@@ -29,10 +30,11 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
     private final ProductService productService;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public OrderResponseDto placeOrder(OrderCreateRequestDto requestDto) {
-        return orderMapper.toDto(createOrder(requestDto));
+        return orderMapper.toDto(orderRepository.save(createOrder(requestDto)));
     }
 
     @Override
@@ -50,9 +52,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponseDto updateOrderStatus(Long id, Order.Status status) {
+    public OrderResponseDto updateOrderStatus(Long id, String status) {
         Order order = getOrderById(id);
-        order.setStatus(status);
+        order.setStatus(Order.Status.valueOf(status));
         return orderMapper.toDto(orderRepository.save(order));
     }
 
@@ -63,20 +65,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Order createOrder(OrderCreateRequestDto requestDto) {
-        List<OrderItem> orderItems = createOrderItemFromDto(requestDto.orderItems());
         Order order = orderMapper.toModel(requestDto);
         order.setOrderDate(LocalDateTime.now());
         order.setStatus(Order.Status.PENDING);
-        order.setTotal(calculateTotal(orderItems));
+        order = orderRepository.save(order);
+        List<OrderItem> orderItems = createOrderItemFromDto(requestDto.orderItems(), order);
+        orderItemRepository.saveAll(orderItems);
+        BigDecimal total = calculateTotal(orderItems);
+        order.setTotal(total);
         order.setOrderItems(new HashSet<>(orderItems));
-        return order;
+        return orderRepository.save(order);
     }
 
-    private List<OrderItem> createOrderItemFromDto(List<OrderItemCreateRequestDto> orderItemsDtos) {
+    private List<OrderItem> createOrderItemFromDto(
+            List<OrderItemCreateRequestDto> orderItemsDtos, Order order) {
         Map<Long, Product> productMap = getProductMap(orderItemsDtos);
         List<OrderItem> orderItems = new ArrayList<>();
         for (OrderItemCreateRequestDto orderItemDto : orderItemsDtos) {
-            orderItems.add(createOrderItem(orderItemDto, productMap));
+            OrderItem orderItem = createOrderItem(orderItemDto, productMap, order);
+            orderItems.add(orderItem);
         }
         return orderItems;
     }
@@ -101,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderItem createOrderItem(
-            OrderItemCreateRequestDto orderItemDto, Map<Long, Product> productMap) {
+            OrderItemCreateRequestDto orderItemDto, Map<Long, Product> productMap, Order order) {
         Product product = productMap.get(orderItemDto.productId());
         if (product == null) {
             throw new EntityNotFoundException("Product with ID "
@@ -111,6 +118,7 @@ public class OrderServiceImpl implements OrderService {
         orderItem.setProduct(product);
         orderItem.setQuantity(orderItemDto.quantity());
         orderItem.setPrice(product.getPrice());
-        return orderItem;
+        orderItem.setOrder(order);
+        return orderItemRepository.save(orderItem);
     }
 }

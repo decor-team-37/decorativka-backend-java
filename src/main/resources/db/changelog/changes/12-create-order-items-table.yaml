@@ -4,7 +4,7 @@ databaseChangeLog:
       author: antonbabych
       changes:
         - createTable:
-            tableName: orders_items
+            tableName: order_items
             columns:
               - column:
                   name: id

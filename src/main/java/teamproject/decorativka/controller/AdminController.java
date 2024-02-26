@@ -3,9 +3,12 @@ package teamproject.decorativka.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +21,14 @@ import teamproject.decorativka.dto.login.LoginRequestDto;
 import teamproject.decorativka.dto.login.LoginResponseDto;
 import teamproject.decorativka.dto.offer.OfferCreateRequestDto;
 import teamproject.decorativka.dto.offer.OfferResponseDto;
+import teamproject.decorativka.dto.order.OrderResponseDto;
+import teamproject.decorativka.dto.order.OrderStatusUpdateRequestDto;
 import teamproject.decorativka.dto.product.ProductCreateRequestDto;
 import teamproject.decorativka.dto.product.ProductResponseDto;
 import teamproject.decorativka.secutiry.AuthenticationService;
 import teamproject.decorativka.service.CategoryService;
 import teamproject.decorativka.service.OfferService;
+import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
 
 @Tag(name = "Controller for admin panel", description = "Endpoints for administrator")
@@ -34,6 +40,7 @@ public class AdminController {
     private final CategoryService categoryService;
     private final OfferService offerService;
     private final ProductService productService;
+    private final OrderService orderService;
 
     @Operation(summary = "login for admin, open endpoint")
     @PostMapping("/login")
@@ -105,5 +112,24 @@ public class AdminController {
     @DeleteMapping("/offer/delete/{id}")
     public void deleteOffer(@PathVariable Long id) {
         offerService.deleteOffer(id);
+    }
+
+    @Operation(summary = "Get all orders")
+    @GetMapping("/orders")
+    public List<OrderResponseDto> getAllOrders(Pageable pageable) {
+        return orderService.getAllOrders(pageable);
+    }
+
+    @Operation(summary = "Get all not COMPETED orders")
+    @GetMapping("/orders/active")
+    public List<OrderResponseDto> getAllNotCompletedOrders(Pageable pageable) {
+        return orderService.getAllNotCompletedOrders(pageable);
+    }
+
+    @Operation(summary = "Update specific order status")
+    @PostMapping("/orders/{id}")
+    public OrderResponseDto updateOrderStatus(
+            @PathVariable Long id, @RequestBody OrderStatusUpdateRequestDto status) {
+        return orderService.updateOrderStatus(id, status.orderStatus());
     }
 }
