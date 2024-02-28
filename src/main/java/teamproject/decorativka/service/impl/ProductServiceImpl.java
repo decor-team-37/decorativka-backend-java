@@ -23,9 +23,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto createProduct(ProductCreateRequestDto requestDto) {
-        Product model = productMapper.toModel(requestDto);
-        model.setCategory(resolveCategory(requestDto.categoryId()));
-        return productMapper.toDto(productRepository.save(model));
+        Product product = productMapper.toModel(requestDto);
+        product.setCategory(resolveCategory(requestDto.categoryId()));
+        return productMapper.toDto(productRepository.save(product));
     }
 
     @Override

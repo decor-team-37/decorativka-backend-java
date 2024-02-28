@@ -64,8 +64,10 @@ public class CategoryServiceTest {
                 = createValidCategoryCreateRequestDto();
         Category validCategory = createValidCategory();
         CategoryResponseDto expected = createValidCategoryResponseDto();
-        when(categoryMapper.toModel(validCategoryCreateRequestDto)).thenReturn(validCategory);
-        when(categoryRepository.save(validCategory)).thenReturn(validCategory);
+        when(categoryMapper.toModel(validCategoryCreateRequestDto))
+                .thenReturn(validCategory);
+        when(categoryRepository.save(validCategory))
+                .thenReturn(validCategory);
         when(categoryMapper.toDto(validCategory)).thenReturn(expected);
 
         CategoryResponseDto actual = categoryService
@@ -80,8 +82,10 @@ public class CategoryServiceTest {
         Pageable pageable = PageRequest.of(0, 10);
         Category validCategory = createValidCategory();
         CategoryResponseDto validCategoryResponseDto = createValidCategoryResponseDto();
-        when(categoryRepository.getAllByDeletedFalse(pageable)).thenReturn(List.of(validCategory));
-        when(categoryMapper.toDto(validCategory)).thenReturn(validCategoryResponseDto);
+        when(categoryRepository.getAllByDeletedFalse(pageable))
+                .thenReturn(List.of(validCategory));
+        when(categoryMapper.toDto(validCategory))
+                .thenReturn(validCategoryResponseDto);
         List<CategoryResponseDto> expected = List.of(validCategoryResponseDto);
 
         List<CategoryResponseDto> actual = categoryService.getAllCategories(pageable);
@@ -106,7 +110,8 @@ public class CategoryServiceTest {
     @Test
     @DisplayName("Verify getCategory() throw EntityNotFoundException with not valid id")
     public void getCategory_NotValidId_ThrowException() {
-        when(categoryRepository.findByIdAndDeletedFalse(NOT_VALID_ID)).thenReturn(Optional.empty());
+        when(categoryRepository.findByIdAndDeletedFalse(NOT_VALID_ID))
+                .thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class,
                 () -> categoryService.getCategory(NOT_VALID_ID));
