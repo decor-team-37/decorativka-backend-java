@@ -29,6 +29,8 @@ import teamproject.decorativka.model.OrderItem;
 import teamproject.decorativka.model.Product;
 import teamproject.decorativka.repository.OrderItemRepository;
 import teamproject.decorativka.repository.OrderRepository;
+import teamproject.decorativka.service.impl.EmailContentServiceImpl;
+import teamproject.decorativka.service.impl.EmailSenderServiceImpl;
 import teamproject.decorativka.service.impl.OrderServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,6 +63,10 @@ public class OrderServiceTest {
     private ProductService productService;
     @Mock
     private OrderItemRepository orderItemRepository;
+    @Mock
+    private EmailSenderServiceImpl emailSenderServiceImpl;
+    @Mock
+    private EmailContentServiceImpl emailContentService;
 
     private static Product createValidProduct() {
         Product product = new Product();
@@ -153,6 +159,8 @@ public class OrderServiceTest {
                 .thenReturn(mockOrder);
         when(orderRepository.save(any(Order.class))).thenReturn(mockOrder);
         when(orderMapper.toDto(any(Order.class))).thenReturn(expectedResponse);
+        when(emailContentService.createOrderConfirmationContent(any(Order.class)))
+                .thenReturn("Mocked email content");
 
         OrderResponseDto actualResponse = orderService.placeOrder(requestDto);
 
@@ -162,6 +170,8 @@ public class OrderServiceTest {
         verify(orderItemRepository).save(any(OrderItem.class));
         verify(orderMapper).toModel(requestDto);
         verify(orderMapper).toDto(mockOrder);
+        verify(emailSenderServiceImpl)
+                .sendEmail(any(String.class),any(String.class), any(String.class));
     }
 
     @Test
@@ -218,7 +228,9 @@ public class OrderServiceTest {
                 .thenReturn(Optional.of(createValidOrder()));
         when(orderRepository.save(validOrder)).thenReturn(validOrder);
         when(orderMapper.toDto(validOrder)).thenReturn(expected);
-
+        when(emailContentService.createStatusUpdateContent(
+                any(Order.class), any(String.class)))
+                .thenReturn("Mocked email content");
         OrderResponseDto actual = orderService
                 .updateOrderStatus(VALID_ID, VALID_STATUS_STRING_VALUE);
 
@@ -232,6 +244,7 @@ public class OrderServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(EntityNotFoundException.class,
-                () -> orderService.updateOrderStatus(NOT_VALID_ID, VALID_STATUS_STRING_VALUE));
+                () -> orderService.updateOrderStatus(NOT_VALID_ID,
+                        VALID_STATUS_STRING_VALUE));
     }
 }

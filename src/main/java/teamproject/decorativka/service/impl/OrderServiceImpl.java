@@ -21,6 +21,8 @@ import teamproject.decorativka.model.OrderItem;
 import teamproject.decorativka.model.Product;
 import teamproject.decorativka.repository.OrderItemRepository;
 import teamproject.decorativka.repository.OrderRepository;
+import teamproject.decorativka.service.EmailContentService;
+import teamproject.decorativka.service.EmailSenderService;
 import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
 
@@ -31,10 +33,15 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
     private final OrderItemRepository orderItemRepository;
+    private final EmailSenderService emailSenderService;
+    private final EmailContentService emailContentService;
 
     @Override
     public OrderResponseDto placeOrder(OrderCreateRequestDto requestDto) {
-        return orderMapper.toDto(orderRepository.save(createOrder(requestDto)));
+        Order order = orderRepository.save(createOrder(requestDto));
+        emailSenderService.sendEmail(requestDto.email(), "Order Confirmation",
+                emailContentService.createOrderConfirmationContent(order));
+        return orderMapper.toDto(order);
     }
 
     @Override
@@ -55,6 +62,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto updateOrderStatus(Long id, String status) {
         Order order = getOrderById(id);
         order.setStatus(Order.Status.valueOf(status));
+        emailSenderService.sendEmail(order.getEmail(), "STATUS UPDATED",
+                emailContentService.createStatusUpdateContent(order, status));
         return orderMapper.toDto(orderRepository.save(order));
     }
 
