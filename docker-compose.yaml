@@ -25,13 +25,19 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url": "jdbc:postgresql://postgresqldb:${POSTGRESQL_DOCKER_PORT}/${POSTGRESQL_DATABASE}",
-        "spring.datasource.username" : "$POSTGRESQL_USER",
-        "spring.datasource.password" : "$POSTGRESQL_PASSWORD",
-        "spring.datasource.driver-class-name" : "org.postgresql.Driver",
-        "spring.jpa.hibernate.ddl-aut" : "validate",
-        "spring.jpa.show-sql" : "true",
-        "server.servlet.context-path" : "/api",
-        "jwt.expiration" : "$JWT_EXPIRATION_TIME",
-        "jwt_secret" : "$JWT_SECRET"
+        "spring.datasource.username": "${POSTGRESQL_USER}",
+        "spring.datasource.password": "${POSTGRESQL_PASSWORD}",
+        "spring.datasource.driver-class-name": "org.postgresql.Driver",
+        "spring.jpa.hibernate.ddl-aut": "validate",
+        "spring.jpa.show-sql": "true",
+        "server.servlet.context-path": "/api",
+        "jwt.expiration": "${JWT_EXPIRATION_TIME}",
+        "jwt.secret": "${JWT_SECRET}",
+        "spring.mail.host": "${MAIL_HOST}",
+        "spring.mail.port": "${MAIL_PORT}",
+        "spring.mail.username": "${MAIL_USERNAME}",
+        "spring.mail.password": "${MAIL_PASSWORD}",
+        "spring.mail.properties.mail.smtp.auth": "true",
+        "spring.mail.properties.mail.smtp.starttls.enable": "true"
         }'
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
