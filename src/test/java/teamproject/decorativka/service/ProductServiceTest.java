@@ -23,7 +23,7 @@ import teamproject.decorativka.mapper.ProductMapper;
 import teamproject.decorativka.model.Category;
 import teamproject.decorativka.model.Product;
 import teamproject.decorativka.repository.CategoryRepository;
-import teamproject.decorativka.repository.ProductRepository;
+import teamproject.decorativka.repository.product.ProductRepository;
 import teamproject.decorativka.service.impl.ProductServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
@@ -117,6 +117,7 @@ public class ProductServiceTest {
                 VALID_PRODUCER,
                 VALID_COLLECTION,
                 VALID_TYPE,
+                VALID_TONE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
                 VALID_IMAGES_URLS

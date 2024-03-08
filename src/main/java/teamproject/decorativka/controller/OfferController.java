@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.decorativka.dto.offer.OfferResponseDto;
+import teamproject.decorativka.search.OfferSearchParameters;
 import teamproject.decorativka.service.OfferService;
 
 @Tag(name = "Offers (Services) manager",
@@ -36,5 +37,13 @@ public class OfferController {
     @GetMapping
     public List<OfferResponseDto> getAllOffers(Pageable pageable) {
         return offerService.getAllOffers(pageable);
+    }
+
+    @Operation(summary = "Search offers (services) for specific parameters",
+            description = "Get all offers, which have certain params: name")
+    @GetMapping("/search")
+    public List<OfferResponseDto> getAllBySearchParams(OfferSearchParameters searchParameters,
+                                                       Pageable pageable) {
+        return offerService.search(searchParameters, pageable);
     }
 }

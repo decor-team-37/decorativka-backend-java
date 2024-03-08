@@ -20,7 +20,7 @@ import teamproject.decorativka.dto.offer.OfferCreateRequestDto;
 import teamproject.decorativka.dto.offer.OfferResponseDto;
 import teamproject.decorativka.mapper.OfferMapper;
 import teamproject.decorativka.model.Offer;
-import teamproject.decorativka.repository.OfferRepository;
+import teamproject.decorativka.repository.offer.OfferRepository;
 import teamproject.decorativka.service.impl.OfferServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
