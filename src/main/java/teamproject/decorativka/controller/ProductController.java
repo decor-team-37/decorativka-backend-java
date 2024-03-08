@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.decorativka.dto.product.ProductResponseDto;
+import teamproject.decorativka.search.ProductSearchParameters;
 import teamproject.decorativka.service.ProductService;
 
 @Tag(name = "Product manager",
@@ -37,5 +38,14 @@ public class ProductController {
     @GetMapping("/{id}")
     public ProductResponseDto getProduct(@PathVariable Long id) {
         return productService.getProduct(id);
+    }
+
+    @Operation(summary = "Search products for specific parameters",
+            description = "Get all products, which have certain params: "
+                    + "name, price, country, producer, collection, tone, room, type")
+    @GetMapping("/search")
+    public List<ProductResponseDto> getAllBySearchParams(ProductSearchParameters searchParameters,
+                                                         Pageable pageable) {
+        return productService.search(searchParameters, pageable);
     }
 }

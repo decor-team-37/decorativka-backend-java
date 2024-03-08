@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import teamproject.decorativka.dto.product.ProductCreateRequestDto;
 import teamproject.decorativka.dto.product.ProductResponseDto;
 import teamproject.decorativka.model.Product;
+import teamproject.decorativka.search.ProductSearchParameters;
 
 public interface ProductService {
     ProductResponseDto createProduct(ProductCreateRequestDto requestDto);
@@ -18,4 +19,6 @@ public interface ProductService {
     void deleteProduct(Long id);
 
     List<Product> getAllByIds(List<Long> ids);
+
+    List<ProductResponseDto> search(ProductSearchParameters searchParameters, Pageable pageable);
 }
