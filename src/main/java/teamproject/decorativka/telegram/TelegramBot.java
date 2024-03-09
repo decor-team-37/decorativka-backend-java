@@ -1,12 +1,18 @@
 package teamproject.decorativka.telegram;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import teamproject.decorativka.telegram.dispatcher.ActionDispatcher;
 
 @RequiredArgsConstructor
 @Component
@@ -16,6 +22,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Value("${telegrambot.botToken}")
     private String botToken;
     private final TelegramAdminService telegramAdminService;
+    private final ActionDispatcher actionDispatcher;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -23,6 +30,15 @@ public class TelegramBot extends TelegramLongPollingBot {
             Long chatId = update.getMessage().getChatId();
             String message = update.getMessage().getText();
             processMessage(chatId, message);
+        }
+        if (update.hasCallbackQuery()) {
+            String callData = update.getCallbackQuery().getData();
+            Long chatId = update.getCallbackQuery().getMessage().getChatId();
+            String[] parts = callData.split(" ");
+            String command = parts[0];
+            String[] args = Arrays.copyOfRange(parts, 1, parts.length);
+
+            actionDispatcher.dispatch(chatId, command, args);
         }
     }
 
@@ -48,9 +64,41 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    private void sendMainMenu(Long chatId) {
+        SendMessage message = SendMessage.builder()
+                .chatId(chatId)
+                .text("Виберіть опцію:")
+                .replyMarkup(getMainMenuKeyboard())
+                .build();
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException("Can't send menu to chatId: " + chatId, e);
+        }
+    }
+
+    private InlineKeyboardMarkup getMainMenuKeyboard() {
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        rowInline.add(InlineKeyboardButton.builder().text("Створити замовлення")
+                .callbackData("place_order").build());
+        rowInline.add(InlineKeyboardButton.builder().text("Всі замовлення")
+                .callbackData("get_all_orders").build());
+        rowsInline.add(rowInline);
+        rowInline = new ArrayList<>();
+        rowInline.add(InlineKeyboardButton.builder().text("Всі активні замовлення")
+                .callbackData("get_open_orders").build());
+        rowInline.add(InlineKeyboardButton.builder().text("Оновити статус")
+                .callbackData("update_order").build());
+        rowsInline.add(rowInline);
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        markupInline.setKeyboard(rowsInline);
+        return markupInline;
+    }
+
     private void processMessage(Long chatId, String message) {
         if (telegramAdminService.isAuthorized(chatId, message)) {
-            sendMessage(chatId, "Welcome!");
+            sendMainMenu(chatId);
         }
     }
 }

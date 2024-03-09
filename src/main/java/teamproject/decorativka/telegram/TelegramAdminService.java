@@ -37,6 +37,7 @@ public class TelegramAdminService {
             telegramBot.sendMessage(chatId, "Невірний email чи пароль");
             return false;
         }
+        adminStates.get(chatId).setAwaitingPassword(false);
         adminStates.get(chatId).setAwaitingEmail(false);
         adminStates.get(chatId).setEmail(text);
         telegramBot.sendMessage(chatId, "Login successful");

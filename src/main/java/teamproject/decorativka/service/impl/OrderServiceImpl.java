@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponseDto> getAllOrders(Pageable pageable) {
-        return orderRepository.getAllByDeletedFalse(pageable).stream()
+        return orderRepository.findAllWithOrderItems(pageable).stream()
                 .map(orderMapper::toDto)
                 .toList();
     }
