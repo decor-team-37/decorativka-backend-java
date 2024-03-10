@@ -1,6 +1,8 @@
 package teamproject.decorativka.service.impl;
 
+import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
+import teamproject.decorativka.dto.feedback.FeedbackRequestDto;
 import teamproject.decorativka.model.Order;
 import teamproject.decorativka.model.OrderItem;
 import teamproject.decorativka.service.EmailContentService;
@@ -36,6 +38,25 @@ public class EmailContentServiceImpl implements EmailContentService {
                 + "<p>Адреса доставки: " + order.getShippingAddress() + "</p>"
                 + "<p>Дата замовлення: " + order.getOrderDate() + "</p>";
         return getOrderItemsInfo(order, htmlContent);
+    }
+
+    @Override
+    public String createFeedbackEmailContend(FeedbackRequestDto requestDto) {
+        return "<html>"
+                + "<body>"
+                + "<h2>Інформація про звернення:</h2>"
+                + "<p><strong>Ім'я:</strong> "
+                + requestDto.name() + "</p>"
+                + "<p><strong>Email:</strong> "
+                + requestDto.email() + "</p>"
+                + "<p><strong>Коментар:</strong> "
+                + requestDto.comment() + "</p>"
+                + "<p>Дата та час отримання звернення: "
+                + LocalDateTime.now() + "</p>"
+                + "<p>Дякуємо за ваше повідомлення! "
+                + "Ми зв'яжемося з вами найближчим часом.</p>"
+                + "</body>"
+                + "</html>";
     }
 
     private String getOrderItemsInfo(Order order, String htmlContent) {

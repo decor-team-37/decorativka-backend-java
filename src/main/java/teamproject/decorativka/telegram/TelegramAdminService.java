@@ -2,6 +2,7 @@ package teamproject.decorativka.telegram;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,10 @@ public class TelegramAdminService {
         }
         getState(chatId).setEmail(email);
         return true;
+    }
+
+    public Set<Long> getAllAdminsChatIds() {
+        return adminStates.keySet();
     }
 
     private boolean processState(Long chatId, TelegramAdminState state, String messageText) {
