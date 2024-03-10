@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import teamproject.decorativka.telegram.dispatcher.ActionDispatcher;
+import teamproject.decorativka.telegram.dispatcher.CommandDispatcher;
 
 @RequiredArgsConstructor
 @Component
@@ -23,6 +24,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private String botToken;
     private final TelegramAdminService telegramAdminService;
     private final ActionDispatcher actionDispatcher;
+    private final CommandDispatcher commandDispatcher;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -80,8 +82,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private InlineKeyboardMarkup getMainMenuKeyboard() {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        rowInline.add(InlineKeyboardButton.builder().text("Створити замовлення")
-                .callbackData("place_order").build());
         rowInline.add(InlineKeyboardButton.builder().text("Всі замовлення")
                 .callbackData("get_all_orders").build());
         rowsInline.add(rowInline);
@@ -98,7 +98,14 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void processMessage(Long chatId, String message) {
         if (telegramAdminService.isAuthorized(chatId, message)) {
-            sendMainMenu(chatId);
+            if (message.startsWith("/")) {
+                String[] parts = message.split(" ");
+                String command = parts[0];
+                String[] args = Arrays.copyOfRange(parts, 1, parts.length);
+                commandDispatcher.dispatch(chatId, command, args);
+            } else {
+                sendMainMenu(chatId);
+            }
         }
     }
 }

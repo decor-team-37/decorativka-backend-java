@@ -11,5 +11,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.deleted = false")
     List<Order> findAllWithOrderItems(Pageable pageable);
 
+    @Query("SELECT o FROM Order o LEFT JOIN FETCH o.orderItems"
+            + " WHERE o.id = :id AND o.deleted = false")
     Optional<Order> findByIdAndDeletedFalse(Long id);
 }

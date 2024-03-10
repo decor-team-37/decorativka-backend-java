@@ -1,6 +1,5 @@
 package teamproject.decorativka.telegram.dispatcher.handlers;
 
-import java.util.Arrays;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import teamproject.decorativka.telegram.TelegramBot;
@@ -17,7 +16,8 @@ public class UpdateStatusActionHandler implements ActionHandler {
 
     @Override
     public void handleAction(Long chatId, String action, String[] args) {
-        telegramBot.sendMessage(chatId, "%s%s".formatted(action, Arrays.toString(args)));
+        telegramBot.sendMessage(chatId, "Будь ласка, введіть команду у форматі:"
+                + " /update_order [номер замовлення] [новий статус]");
     }
 
     @Override

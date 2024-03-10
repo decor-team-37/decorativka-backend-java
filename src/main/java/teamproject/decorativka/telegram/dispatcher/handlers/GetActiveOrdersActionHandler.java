@@ -11,25 +11,28 @@ import teamproject.decorativka.telegram.TelegramBot;
 import teamproject.decorativka.telegram.dispatcher.ActionHandler;
 
 @Component
-public class GetAllActionHandler implements ActionHandler {
-    private static final String ACTION = "get_all_orders";
-    private final OrderService orderService;
+public class GetActiveOrdersActionHandler implements ActionHandler {
+    private static final String ACTION = "get_open_orders";
+
     private final TelegramBot telegramBot;
+    private final OrderService orderService;
     private final MessageFormatterService messageFormatterService;
 
-    public GetAllActionHandler(OrderService orderService,
-                               @Lazy TelegramBot telegramBot,
-                               MessageFormatterService messageFormatterService) {
-        this.orderService = orderService;
+    public GetActiveOrdersActionHandler(@Lazy TelegramBot telegramBot,
+                                        OrderService orderService,
+                                        MessageFormatterService messageFormatterService) {
         this.telegramBot = telegramBot;
+        this.orderService = orderService;
         this.messageFormatterService = messageFormatterService;
     }
 
     @Override
     public void handleAction(Long chatId, String action, String[] args) {
-        List<OrderResponseDto> allOrders
-                = orderService.getAllOrders(PageRequest.of(0, 25));
-        telegramBot.sendMessage(chatId, messageFormatterService.formatOrdersMessage(allOrders));
+        List<OrderResponseDto> allNotCompletedOrders
+                = orderService.getAllNotCompletedOrders(PageRequest.of(0, 25));
+        telegramBot.sendMessage(chatId, messageFormatterService
+                .formatOrdersMessage(allNotCompletedOrders));
+
     }
 
     @Override
