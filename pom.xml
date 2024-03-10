@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>teamproject.decorativka</groupId>
 	<artifactId>decorativka</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-ALFA</version>
 	<name>decorativka</name>
 	<description>decorativka</description>
 	<properties>
@@ -105,6 +105,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>3.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots-spring-boot-starter</artifactId>
+			<version>6.9.7.1</version>
 		</dependency>
 	</dependencies>
 

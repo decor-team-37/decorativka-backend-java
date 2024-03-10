@@ -180,7 +180,7 @@ public class OrderServiceTest {
         List<Order> orders = List.of(createValidOrder());
         List<OrderResponseDto> expected = List.of(createValidOrderResponseDto());
         Pageable pageable = PageRequest.of(0, 10);
-        when(orderRepository.getAllByDeletedFalse(pageable)).thenReturn(orders);
+        when(orderRepository.findAllWithOrderItems(pageable)).thenReturn(orders);
         when(orderMapper.toDto(any(Order.class)))
                 .thenReturn(createValidOrderResponseDto());
 
@@ -195,7 +195,7 @@ public class OrderServiceTest {
         List<Order> orders = List.of(createValidOrder());
         List<OrderResponseDto> expected = List.of(createValidOrderResponseDto());
         Pageable pageable = PageRequest.of(0, 10);
-        when(orderRepository.getAllByDeletedFalse(pageable)).thenReturn(orders);
+        when(orderRepository.findAllWithOrderItems(pageable)).thenReturn(orders);
         when(orderMapper.toDto(any(Order.class)))
                 .thenReturn(createValidOrderResponseDto());
 
