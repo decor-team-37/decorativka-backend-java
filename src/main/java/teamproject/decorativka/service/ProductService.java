@@ -21,4 +21,6 @@ public interface ProductService {
     List<Product> getAllByIds(List<Long> ids);
 
     List<ProductResponseDto> search(ProductSearchParameters searchParameters, Pageable pageable);
+
+    List<ProductResponseDto> getAllProductsByCategoryId(Long id);
 }
