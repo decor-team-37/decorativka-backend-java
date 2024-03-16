@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import teamproject.decorativka.model.Area;
 import teamproject.decorativka.model.City;
 import teamproject.decorativka.service.NovaPoshtaCityParserService;
 
@@ -20,6 +20,8 @@ public class NovaPoshtaCityParserServiceImpl implements NovaPoshtaCityParserServ
     private static final int LIMIT = 150;
     private static final String API_URL = "https://api.novaposhta.ua/v2.0/json/";
     private final RestTemplate restTemplate;
+    private final Map<String, List<City>> areaToCitiesMap = new HashMap<>();
+    private final List<City> cities = new ArrayList<>();
     @Value("${novaposhta.apikey}")
     private String apiKey;
 
@@ -28,11 +30,30 @@ public class NovaPoshtaCityParserServiceImpl implements NovaPoshtaCityParserServ
     }
 
     @Override
-    public List<City> getCitiesByArea(String areaRef) {
-        List<City> citiesForArea = new ArrayList<>();
+    public List<City> getCitiesByArea(String areaName) {
+        return areaToCitiesMap.getOrDefault(areaName, Collections.emptyList());
+    }
+
+    @Override
+    public List<String> getAreas() {
+        return new ArrayList<>(areaToCitiesMap.keySet());
+    }
+
+    @Cacheable("areaToCitiesMap")
+    @Override
+    public Map<String, List<City>> initializeCitiesCache() {
+        List<String> areas = getAreasFromApi();
+        for (String area : areas) {
+            areaToCitiesMap.put(area, getCitiesByAreaFromApi(area));
+        }
+        cities.clear();
+        return areaToCitiesMap;
+    }
+
+    private List<City> getAllCities() {
         int page = 1;
         while (true) {
-            Map<String, Object> requestPayload = getRequestPayload(page++, areaRef);
+            Map<String, Object> requestPayload = getRequestPayload(page++);
             ResponseEntity<Map> response =
                     restTemplate.postForEntity(API_URL, requestPayload, Map.class);
             if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
@@ -40,19 +61,22 @@ public class NovaPoshtaCityParserServiceImpl implements NovaPoshtaCityParserServ
             }
             List<Map<String, Object>> citiesData =
                     (List<Map<String, Object>>) response.getBody().get("data");
-            List<City> cities = citiesData.stream()
-                    .map(this::mapApiResponseToCity)
-                    .toList();
-            citiesForArea.addAll(cities);
-            if (cities.size() < LIMIT) {
+            this.cities.addAll(citiesData.stream().map(this::mapApiResponseToCity).toList());
+            if (citiesData.size() < LIMIT) {
                 break;
             }
         }
-        return citiesForArea;
+        return cities;
     }
 
-    @Override
-    public List<Area> getAreas() {
+    private List<City> getCitiesByAreaFromApi(String name) {
+        if (cities.isEmpty()) {
+            getAllCities();
+        }
+        return cities.stream().filter(city -> city.getArea().equals(name)).toList();
+    }
+
+    private List<String> getAreasFromApi() {
         Map<String, Object> requestPayload = new HashMap<>();
         requestPayload.put("apiKey", apiKey);
         requestPayload.put("modelName", "Address");
@@ -70,33 +94,27 @@ public class NovaPoshtaCityParserServiceImpl implements NovaPoshtaCityParserServ
         return Collections.emptyList();
     }
 
-    private Map<String, Object> getRequestPayload(int page, String areaRef) {
+    private Map<String, Object> getRequestPayload(int page) {
         Map<String, Object> requestPayload = new HashMap<>();
         requestPayload.put("apiKey", apiKey);
         requestPayload.put("modelName", "Address");
         requestPayload.put("calledMethod", "getSettlements");
         Map<String, String> methodProperties = new HashMap<>();
-        methodProperties.put("AreaRef", areaRef);
         methodProperties.put("Page", String.valueOf(page));
         methodProperties.put("Warehouse", "1");
         requestPayload.put("methodProperties", methodProperties);
         return requestPayload;
     }
 
-    private Area mapApiResponseToRegion(Map<String, Object> apiResponse) {
-        Area area = new Area();
-        area.setRef((String) apiResponse.get("Ref"));
-        area.setDescription((String) apiResponse.get("Description"));
-        return area;
+    private String mapApiResponseToRegion(Map<String, Object> apiResponse) {
+        return (apiResponse.get("Description") + " область");
     }
 
     private City mapApiResponseToCity(Map<String, Object> apiResponse) {
         City city = new City();
-        city.setRef((String) apiResponse.get("Ref"));
         city.setName((String) apiResponse.get("Description"));
         city.setRegion((String) apiResponse.get("RegionsDescription"));
         city.setArea((String) apiResponse.get("AreaDescription"));
-        city.setAreaRef((String) apiResponse.get("Area"));
         return city;
     }
 }

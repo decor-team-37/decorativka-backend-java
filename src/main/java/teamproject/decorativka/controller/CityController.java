@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import teamproject.decorativka.model.Area;
 import teamproject.decorativka.model.City;
 import teamproject.decorativka.service.NovaPoshtaCityParserService;
 
@@ -22,7 +21,7 @@ public class CityController {
     }
 
     @GetMapping("/areas")
-    public List<Area> getAreas() {
+    public List<String> getAreas() {
         return novaPoshtaCityParserService.getAreas();
     }
 }
