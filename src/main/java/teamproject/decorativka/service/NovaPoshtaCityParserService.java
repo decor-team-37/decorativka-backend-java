@@ -5,7 +5,7 @@ import java.util.Map;
 import teamproject.decorativka.model.City;
 
 public interface NovaPoshtaCityParserService {
-    List<City> getCitiesByArea(String areaRef);
+    List<City> getCitiesByArea(String areaName);
 
     List<String> getAreas();
 
