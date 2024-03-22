@@ -73,6 +73,14 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
+    @Override
+    public List<ProductResponseDto> getAllProductsByCategoryId(Long id) {
+        resolveCategory(id);
+        return productRepository.getAllByCategoryIdAndDeletedFalse(id).stream()
+                .map(productMapper::toDto)
+                .toList();
+    }
+
     private Product getProductById(Long id) {
         return productRepository.findByIdAndDeletedFalse(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find product with id: " + id)

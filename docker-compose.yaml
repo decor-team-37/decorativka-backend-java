@@ -41,6 +41,7 @@ services:
         "spring.mail.properties.mail.smtp.starttls.enable": "true",
         "telegrambot.botUsername":"${TELEGRAM_BOT_USERNAME}",
         "telegrambot.botToken":"${TELEGRAM_BOT_TOKEN}",
-        "telegrambot.botPath":"{TELEGRAM_BOT_PATH}"
+        "telegrambot.botPath":"{TELEGRAM_BOT_PATH}",
+        "novaposhta.apikey":"${NOVA_POSHTA_API_KEY}"
         }'
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"

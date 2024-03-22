@@ -48,4 +48,10 @@ public class ProductController {
                                                          Pageable pageable) {
         return productService.search(searchParameters, pageable);
     }
+
+    @Operation(summary = "Get all product by category id")
+    @GetMapping("/all/{id}")
+    public List<ProductResponseDto> getAllProductsByCategoryId(@PathVariable Long id) {
+        return productService.getAllProductsByCategoryId(id);
+    }
 }
