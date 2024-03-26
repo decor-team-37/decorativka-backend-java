@@ -16,11 +16,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/08-create-products-table.yaml
   - include:
+      file: db/changelog/changes/09-create-types-table.yaml
+  - include:
       file: db/changelog/changes/09-create-offers-table.yaml
   - include:
       file: db/changelog/changes/developing-only-insert-two-category.yaml
   - include:
       file: db/changelog/changes/developing-only-insert-five-products.yaml
+  - include:
+      file: db/changelog/changes/developing-only-insert-two-types.yaml
   - include:
       file: db/changelog/changes/developing-only-insert-three-offers.yaml
   - include:

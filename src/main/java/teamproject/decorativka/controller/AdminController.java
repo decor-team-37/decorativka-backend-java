@@ -25,11 +25,14 @@ import teamproject.decorativka.dto.order.OrderResponseDto;
 import teamproject.decorativka.dto.order.OrderStatusUpdateRequestDto;
 import teamproject.decorativka.dto.product.ProductCreateRequestDto;
 import teamproject.decorativka.dto.product.ProductResponseDto;
+import teamproject.decorativka.dto.type.TypeCreateRequestDto;
+import teamproject.decorativka.dto.type.TypeResponseDto;
 import teamproject.decorativka.secutiry.AuthenticationService;
 import teamproject.decorativka.service.CategoryService;
 import teamproject.decorativka.service.OfferService;
 import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
+import teamproject.decorativka.service.TypeService;
 
 @Tag(name = "Controller for admin panel", description = "Endpoints for administrator")
 @RequiredArgsConstructor
@@ -41,6 +44,7 @@ public class AdminController {
     private final OfferService offerService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final TypeService typeService;
 
     @Operation(summary = "login for admin, open endpoint")
     @PostMapping("/login")
@@ -131,5 +135,17 @@ public class AdminController {
     public OrderResponseDto updateOrderStatus(
             @PathVariable Long id, @RequestBody OrderStatusUpdateRequestDto status) {
         return orderService.updateOrderStatus(id, status.orderStatus());
+    }
+
+    @Operation(summary = "Create new type for Offer (service)")
+    @PostMapping("/types")
+    public TypeResponseDto createType(TypeCreateRequestDto requestDto) {
+        return typeService.createType(requestDto);
+    }
+
+    @DeleteMapping("types/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteType(@PathVariable Long id) {
+        typeService.deleteType(id);
     }
 }

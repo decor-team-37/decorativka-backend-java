@@ -8,6 +8,8 @@ public record OfferCreateRequestDto(
         String name,
         @NotNull
         String description,
+        @NotNull
+        Long typeId,
         List<String> imageUrl
 ) {
 }
