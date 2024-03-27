@@ -14,12 +14,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import teamproject.decorativka.dto.offer.OfferCreateRequestDto;
 import teamproject.decorativka.dto.offer.OfferResponseDto;
 import teamproject.decorativka.mapper.OfferMapper;
 import teamproject.decorativka.model.Offer;
+import teamproject.decorativka.model.Type;
+import teamproject.decorativka.repository.TypesRepository;
 import teamproject.decorativka.repository.offer.OfferRepository;
 import teamproject.decorativka.service.impl.OfferServiceImpl;
 
@@ -40,6 +44,8 @@ public class OfferServiceTest {
     private OfferMapper offerMapper;
     @Mock
     private OfferRepository offerRepository;
+    @Mock
+    private TypesRepository typesRepository;
 
     private Offer createValidOffer() {
         Offer offer = new Offer();
@@ -54,6 +60,7 @@ public class OfferServiceTest {
         return new OfferCreateRequestDto(
                 VALID_NAME,
                 VALID_DESCRIPTION,
+                VALID_ID,
                 VALID_IMAGES_URLS
         );
     }
@@ -63,6 +70,7 @@ public class OfferServiceTest {
                 VALID_ID,
                 VALID_NAME,
                 VALID_DESCRIPTION,
+                VALID_ID,
                 VALID_IMAGES_URLS
         );
     }
@@ -74,6 +82,7 @@ public class OfferServiceTest {
         OfferCreateRequestDto validRequestDto = createValidRequestDto();
         OfferResponseDto expected = createValidResponseDto();
         when(offerMapper.toModel(validRequestDto)).thenReturn(validOffer);
+        when(typesRepository.findById(VALID_ID)).thenReturn(Optional.of(new Type()));
         when(offerRepository.save(validOffer)).thenReturn(validOffer);
         when(offerMapper.toDto(validOffer)).thenReturn(expected);
 
@@ -87,7 +96,7 @@ public class OfferServiceTest {
     public void getOfferById_ValidId_ValidResponseDto() {
         OfferResponseDto expected = createValidResponseDto();
         Offer validOffer = createValidOffer();
-        when(offerRepository.findByIdAndDeletedFalse(VALID_ID))
+        when(offerRepository.findById(VALID_ID))
                 .thenReturn(Optional.of(validOffer));
         when(offerMapper.toDto(validOffer)).thenReturn(expected);
 
@@ -99,7 +108,7 @@ public class OfferServiceTest {
     @Test
     @DisplayName("Verify getOfferById() method throw exception with not valid id")
     public void getOfferById_NotValidId_EntityNotFoundException() {
-        when(offerRepository.findByIdAndDeletedFalse(NOT_VALID_ID))
+        when(offerRepository.findById(NOT_VALID_ID))
                 .thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class,
@@ -112,7 +121,9 @@ public class OfferServiceTest {
         Pageable pageable = PageRequest.of(0, 10);
         List<Offer> offerList = List.of(createValidOffer());
         List<OfferResponseDto> expected = List.of(createValidResponseDto());
-        when(offerRepository.getAllByDeletedFalse(pageable)).thenReturn(offerList);
+        Page<Offer> offerPage = new PageImpl<>(offerList, pageable, offerList.size());
+
+        when(offerRepository.findAll(pageable)).thenReturn(offerPage);
         when(offerMapper.toDto(createValidOffer())).thenReturn(createValidResponseDto());
 
         List<OfferResponseDto> actual = offerService.getAllOffers(pageable);
@@ -126,7 +137,7 @@ public class OfferServiceTest {
         Offer validOffer = createValidOffer();
         OfferCreateRequestDto validRequestDto = createValidRequestDto();
         OfferResponseDto expected = createValidResponseDto();
-        when(offerRepository.findByIdAndDeletedFalse(VALID_ID))
+        when(offerRepository.findById(VALID_ID))
                 .thenReturn(Optional.of(validOffer));
         when(offerMapper.toDto(validOffer)).thenReturn(expected);
 
@@ -139,13 +150,8 @@ public class OfferServiceTest {
     @Test
     @DisplayName("Verify deleteOffer() method works")
     public void deleteOffer_ValidId_DeletedTrue() {
-        Offer expected = createValidOffer();
-        expected.setDeleted(true);
-        when(offerRepository.findByIdAndDeletedFalse(VALID_ID))
-                .thenReturn(Optional.of(createValidOffer()));
-
         offerService.deleteOffer(VALID_ID);
 
-        verify(offerRepository).save(expected);
+        verify(offerRepository).deleteById(VALID_ID);
     }
 }

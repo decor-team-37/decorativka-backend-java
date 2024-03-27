@@ -8,31 +8,31 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: Product 1
+                  value: Dulux Easycare Washable & Tough Matt Emulsion Paint
               - column:
                   name: country
-                  value: Country 1
+                  value: United Kingdom
               - column:
                   name: price
-                  value: 10.00
+                  value: 25.99
               - column:
                   name: producer
-                  value: Producer 1
+                  value: Dulux
               - column:
                   name: collection
-                  value: Collection 1
+                  value: Easycare
               - column:
                   name: tone
-                  value: Tone 1
+                  value: White
               - column:
                   name: type
-                  value: Type 1
+                  value: Emulsion Paint
               - column:
                   name: room
-                  value: Room 1
+                  value: Living Room
               - column:
                   name: description
-                  value: Description for Product 1
+                  value: Durable and washable paint for walls and ceilings, perfect for busy areas.
               - column:
                   name: deleted
                   valueBoolean: false
@@ -44,142 +44,254 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: Product 2
+                  value: Farrow & Ball Estate Emulsion Paint
               - column:
                   name: country
-                  value: Country 2
+                  value: United Kingdom
               - column:
                   name: price
-                  value: 12.00
+                  value: 49.99
               - column:
                   name: producer
-                  value: Producer 2
+                  value: Farrow & Ball
               - column:
                   name: collection
-                  value: Collection 2
+                  value: Estate
               - column:
                   name: tone
-                  value: Tone 2
+                  value: Hague Blue
               - column:
                   name: type
-                  value: Type 2
+                  value: Emulsion Paint
               - column:
                   name: room
-                  value: Room 2
+                  value: Bedroom
               - column:
                   name: description
-                  value: Description for Product 2
-              - column:
-                  name: deleted
-                  valueBoolean: false
-              - column:
-                  name: category_id
-                  valueNumeric: 2
-        - insert:
-            tableName: products
-            columns:
-              - column:
-                  name: name
-                  value: Product 3
-              - column:
-                  name: country
-                  value: Country 1
-              - column:
-                  name: price
-                  value: 99.99
-              - column:
-                  name: producer
-                  value: Producer 2
-              - column:
-                  name: collection
-                  value: Collection 2
-              - column:
-                  name: tone
-                  value: Tone 3
-              - column:
-                  name: type
-                  value: Type 3
-              - column:
-                  name: room
-                  value: Room 3
-              - column:
-                  name: description
-                  value: Description for Product 3
-              - column:
-                  name: deleted
-                  valueBoolean: false
-              - column:
-                  name: category_id
-                  valueNumeric: 2
-        - insert:
-            tableName: products
-            columns:
-              - column:
-                  name: name
-                  value: Product 4
-              - column:
-                  name: country
-                  value: Country 2
-              - column:
-                  name: price
-                  value: 15.00
-              - column:
-                  name: producer
-                  value: Producer 2
-              - column:
-                  name: collection
-                  value: Collection 2
-              - column:
-                  name: tone
-                  value: Tone 2
-              - column:
-                  name: type
-                  value: Type 2
-              - column:
-                  name: room
-                  value: Room 2
-              - column:
-                  name: description
-                  value: Description for Product 4
-              - column:
-                  name: deleted
-                  valueBoolean: false
-              - column:
-                  name: category_id
-                  valueNumeric: 2
-        - insert:
-            tableName: products
-            columns:
-              - column:
-                  name: name
-                  value: Product 5
-              - column:
-                  name: country
-                  value: Country 1
-              - column:
-                  name: price
-                  value: 199.99
-              - column:
-                  name: producer
-                  value: Producer 2
-              - column:
-                  name: collection
-                  value: Collection 2
-              - column:
-                  name: tone
-                  value: Tone 3
-              - column:
-                  name: type
-                  value: Type 3
-              - column:
-                  name: room
-                  value: Room 3
-              - column:
-                  name: description
-                  value: Description for Product 5
+                  value: High-quality, eco-friendly paint with a luxurious matte finish.
               - column:
                   name: deleted
                   valueBoolean: false
               - column:
                   name: category_id
                   valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Graham & Brown Superfresco Easy Wallpaper
+              - column:
+                  name: country
+                  value: United Kingdom
+              - column:
+                  name: price
+                  value: 19.99
+              - column:
+                  name: producer
+                  value: Graham & Brown
+              - column:
+                  name: collection
+                  value: Superfresco Easy
+              - column:
+                  name: tone
+                  value: Grey
+              - column:
+                  name: type
+                  value: Wallpaper
+              - column:
+                  name: room
+                  value: Dining Room
+              - column:
+                  name: description
+                  value: Easy-to-hang wallpaper with a textured finish, ideal for adding depth to any room.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Laura Ashley Josette Duck Egg Wallpaper
+              - column:
+                  name: country
+                  value: United Kingdom
+              - column:
+                  name: price
+                  value: 29.99
+              - column:
+                  name: producer
+                  value: Laura Ashley
+              - column:
+                  name: collection
+                  value: Josette
+              - column:
+                  name: tone
+                  value: Duck Egg
+              - column:
+                  name: type
+                  value: Wallpaper
+              - column:
+                  name: room
+                  value: Nursery
+              - column:
+                  name: description
+                  value: Elegant duck egg wallpaper with a delicate floral pattern, perfect for a calming nursery environment.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Фарба для стін та стель "Tikkurila Матова"
+              - column:
+                  name: country
+                  value: Фінляндія
+              - column:
+                  name: price
+                  value: 399.99
+              - column:
+                  name: producer
+                  value: Tikkurila
+              - column:
+                  name: collection
+                  value: Матова
+              - column:
+                  name: tone
+                  value: Білий
+              - column:
+                  name: type
+                  value: Фарба
+              - column:
+                  name: room
+                  value: Вітальня
+              - column:
+                  name: description
+                  value: Високоякісна матова фарба для стін та стель, стійка до миття та дуже легко наноситься.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Шпалери "Grandeco Versailles"
+              - column:
+                  name: country
+                  value: Бельгія
+              - column:
+                  name: price
+                  value: 59.99
+              - column:
+                  name: producer
+                  value: Grandeco
+              - column:
+                  name: collection
+                  value: Versailles
+              - column:
+                  name: tone
+                  value: Шампань
+              - column:
+                  name: type
+                  value: Шпалери
+              - column:
+                  name: room
+                  value: Спальня
+              - column:
+                  name: description
+                  value: Розкішні шпалери з ефектом мерехтливого шампанського, створять атмосферу розкіші у вашій спальні.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Фарба для стін "Ceresit CT 17"
+              - column:
+                  name: country
+                  value: Німеччина
+              - column:
+                  name: price
+                  value: 149.99
+              - column:
+                  name: producer
+                  value: Ceresit
+              - column:
+                  name: collection
+                  value: CT 17
+              - column:
+                  name: tone
+                  value: Сірий
+              - column:
+                  name: type
+                  value: Фарба
+              - column:
+                  name: room
+                  value: Кухня
+              - column:
+                  name: description
+                  value: Універсальна фарба для стін, що має водовідштовхувальні властивості та легко наноситься на будь-яку поверхню.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+  - changeSet:
+      id: insert-offer-images
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2399672584_w640_h640_kraska-interernaya-seraya.jpg"
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://www.hobby.dn.ua/images/catalog/arcus/big/370.jpg"

@@ -18,4 +18,6 @@ public interface OfferService {
     void deleteOffer(Long id);
 
     List<OfferResponseDto> search(OfferSearchParameters searchParameters, Pageable pageable);
+
+    List<OfferResponseDto> getAllOfferByTypeId(Long id);
 }

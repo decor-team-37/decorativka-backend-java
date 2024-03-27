@@ -46,4 +46,11 @@ public class OfferController {
                                                        Pageable pageable) {
         return offerService.search(searchParameters, pageable);
     }
+
+    @Operation(summary = "Get all offers (services) by type id",
+            description = "Get list of all not deleted offers by type id")
+    @GetMapping("/type/{id}")
+    public List<OfferResponseDto> getAllByTypeId(@PathVariable Long id) {
+        return offerService.getAllOfferByTypeId(id);
+    }
 }

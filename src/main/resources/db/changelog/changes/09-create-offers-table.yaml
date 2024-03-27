@@ -24,6 +24,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_offers_types_id
+                    references: types(id)
+              - column:
                   name: deleted
                   type: boolean
                   constraints:

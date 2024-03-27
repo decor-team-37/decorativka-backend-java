@@ -8,10 +8,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "Category 1"
+                  value: "Фарба"
               - column:
                   name: description
-                  value: "Description for Category 1"
+                  value: "Опис для фарби"
               - column:
                   name: deleted
                   value: false
@@ -20,10 +20,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "Category 2"
+                  value: "Шпалери"
               - column:
                   name: description
-                  value: "Description for Category 2"
+                  value: "Опис для шпалер"
               - column:
                   name: deleted
                   value: false

@@ -1,53 +1,68 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-offers
+      id: insert-sample-offers
       author: antonbabych
       changes:
         - insert:
             tableName: offers
             columns:
               - column:
-                  name: id
-                  value: 1
-              - column:
                   name: name
-                  value: "Special Offer 1"
+                  value: Декоративна штукатурка "Venetian Plaster"
               - column:
                   name: description
-                  value: "Description of Special Offer 1"
+                  value: Виконання декоративної штукатурки "Venetian Plaster" для стін та стель з використанням високоякісних матеріалів.
+              - column:
+                  name: type_id
+                  valueNumeric: 1
               - column:
                   name: deleted
-                  value: false
+                  valueBoolean: false
         - insert:
             tableName: offers
             columns:
               - column:
-                  name: id
-                  value: 2
-              - column:
                   name: name
-                  value: "Special Offer 2"
+                  value: Декоративна штукатурка "Marmorino"
               - column:
                   name: description
-                  value: "Description of Special Offer 2"
+                  value: Виконання декоративної штукатурки "Marmorino" з використанням італійських матеріалів відомої марки.
+              - column:
+                  name: type_id
+                  valueNumeric: 1
               - column:
                   name: deleted
-                  value: false
+                  valueBoolean: false
         - insert:
             tableName: offers
             columns:
               - column:
-                  name: id
-                  value: 3
-              - column:
                   name: name
-                  value: "Special Offer 3"
+                  value: Поклейка шпалер "Fiberglass"
               - column:
                   name: description
-                  value: "Description of Special Offer 3"
+                  value: Професійна поклейка шпалер з використанням волокна скляної тканини для максимальної міцності та довговічності.
+              - column:
+                  name: type_id
+                  valueNumeric: 2
               - column:
                   name: deleted
-                  value: false
+                  valueBoolean: false
+        - insert:
+            tableName: offers
+            columns:
+              - column:
+                  name: name
+                  value: Поклейка шпалер "Vinyl"
+              - column:
+                  name: description
+                  value: Поклейка вінілових шпалер з використанням спеціального клею для стійкості до вологи та легкості догляду.
+              - column:
+                  name: type_id
+                  valueNumeric: 2
+              - column:
+                  name: deleted
+                  valueBoolean: false
   - changeSet:
       id: insert-offer-images
       author: antonbabych
@@ -60,7 +75,7 @@ databaseChangeLog:
                   value: 1
               - column:
                   name: image_url
-                  value: "https://example.com/image1.jpg"
+                  value: "https://maxima-decor.com/image/products/1680609903_structure.jpg"
         - insert:
             tableName: offer_images
             columns:
@@ -69,7 +84,7 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: image_url
-                  value: "https://example.com/image2.jpg"
+                  value: "https://cdn.27.ua/799/75/12/619794_21.jpeg"
         - insert:
             tableName: offer_images
             columns:
@@ -78,4 +93,13 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: image_url
-                  value: "https://example.com/image3.jpg"
+                  value: "https://walldeco.ua/img/gallery/149/thumbs/thumb_l_dec_21452.jpg"
+        - insert:
+            tableName: offer_images
+            columns:
+              - column:
+                  name: offer_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://gidkie-oboi.org.ua/image/cache/product/zhidkie-oboi-na-kuhne-tip-177-1200x900.jpg"

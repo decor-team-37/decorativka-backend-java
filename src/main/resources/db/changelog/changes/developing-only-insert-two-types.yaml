@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-sample-types
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: types
+            columns:
+              - column:
+                  name: name
+                  value: Декоративна штукатурка
+              - column:
+                  name: deleted
+                  valueBoolean: false
+        - insert:
+            tableName: types
+            columns:
+              - column:
+                  name: name
+                  value: Поклейка шпалер
+              - column:
+                  name: deleted
+                  valueBoolean: false
