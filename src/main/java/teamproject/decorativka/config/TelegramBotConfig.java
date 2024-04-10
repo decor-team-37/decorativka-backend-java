@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import teamproject.decorativka.telegram.TelegramBot;
+
 @Profile("!test")
 @Configuration
 public class TelegramBotConfig {
