@@ -68,9 +68,7 @@ public class ProductControllerTest {
     private ObjectMapper objectMapper;
 
     @BeforeAll
-    static void setup(@Autowired WebApplicationContext applicationContext,
-                      @Autowired DataSource dataSource
-    ) {
+    static void setup(@Autowired WebApplicationContext applicationContext) {
 
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(applicationContext)
