@@ -85,6 +85,7 @@ public class ProductServiceTest {
                 VALID_COUNTRY,
                 VALID_PRODUCER,
                 VALID_COLLECTION,
+                VALID_TONE,
                 VALID_TYPE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
@@ -101,6 +102,7 @@ public class ProductServiceTest {
                 VALID_PRODUCER,
                 VALID_COLLECTION,
                 VALID_TYPE,
+                VALID_TONE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
                 VALID_IMAGES_URLS

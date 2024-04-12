@@ -15,6 +15,7 @@ public record ProductCreateRequestDto(
         String producer,
         String collection,
         String type,
+        String tone,
         String room,
         @NotNull
         String description,

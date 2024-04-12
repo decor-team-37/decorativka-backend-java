@@ -24,6 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -34,6 +35,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.shaded.org.apache.commons.lang3.builder.EqualsBuilder;
 import teamproject.decorativka.config.CustomPostgreSqlContainer;
+import teamproject.decorativka.dto.product.ProductCreateRequestDto;
 import teamproject.decorativka.dto.product.ProductResponseDto;
 import teamproject.decorativka.search.ProductSearchParameters;
 import teamproject.decorativka.service.NovaPoshtaCityParserService;
@@ -107,6 +109,7 @@ public class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
+
         ProductResponseDto[] actual = objectMapper.readValue(mvcResult
                         .getResponse().getContentAsByteArray(),
                 ProductResponseDto[].class);
@@ -194,6 +197,106 @@ public class ProductControllerTest {
         System.out.println(Arrays.toString(actual));
         EqualsBuilder.reflectionEquals(expected, Arrays.asList(actual),
                 "The expected and actual JSON responses should match.");
+    }
+
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    @CitrusTest
+    @Test
+    void createNewProduct_ValidRequestDto_ValidRecordInDb(
+            @CitrusResource TestRunner runner) throws Exception {
+        ProductCreateRequestDto requestDto = createRequestDto();
+        String request = objectMapper.writeValueAsString(requestDto);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .post("/admin/product/new")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        ProductResponseDto actual = objectMapper.readValue(mvcResult.getResponse()
+                .getContentAsByteArray(), ProductResponseDto.class);
+        assertEquals(generateOneProductResponseDto(), actual);
+        runner.query(sqlAction -> sqlAction.dataSource(dataSource)
+                .statement("SELECT COUNT(*) AS product_count FROM products")
+                .validate("product_count", "1"));
+
+    }
+
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    @CitrusTest
+    @Test
+    void updateProductInfo_ValidRequestDto_ValidUpdateInDb(
+            @CitrusResource TestRunner runner) throws Exception {
+        runner.sql(action -> action.dataSource(dataSource)
+                .sqlResource("classpath:database/product/add-three-products.sql"));
+        Long productIdToUpdate = VALID_ID;
+        ProductCreateRequestDto updateRequest = createRequestDtoForUpdate();
+        String request = objectMapper.writeValueAsString(updateRequest);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .post("/admin/product/update/" + productIdToUpdate)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        ProductResponseDto actual = objectMapper.readValue(mvcResult
+                        .getResponse().getContentAsByteArray(),
+                ProductResponseDto.class);
+        assertEquals(updateRequest.name(), actual.name());
+
+        runner.query(sqlAction -> sqlAction.dataSource(dataSource)
+                .statement("SELECT name FROM products WHERE id = " + productIdToUpdate)
+                .validate("name", updateRequest.name()));
+    }
+
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    @CitrusTest
+    @Test
+    void deleteProduct_ValidId_ProductDeleted(
+            @CitrusResource TestRunner runner) throws Exception {
+        Long productIdToDelete = VALID_ID;
+        runner.sql(action -> action.dataSource(dataSource)
+                .sqlResource("classpath:database/product/add-three-products.sql"));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/admin/product/delete/" + productIdToDelete))
+                .andExpect(status().isNoContent());
+
+        runner.query(sqlAction -> sqlAction.dataSource(dataSource)
+                .statement("SELECT deleted FROM products WHERE id = " + productIdToDelete)
+                .validate("deleted", "true"));
+    }
+
+    private ProductCreateRequestDto createRequestDto() {
+        return new ProductCreateRequestDto("Product 1",
+                1L,
+                new BigDecimal("19.99"),
+                "Country 1",
+                "Producer 1",
+                "Collection 1",
+                "Type 1",
+                "Tone 1",
+                "Room 1",
+                "Description 1",
+                Collections.emptyList()
+        );
+    }
+
+    private ProductCreateRequestDto createRequestDtoForUpdate() {
+        return new ProductCreateRequestDto("Product 1",
+                1L,
+                new BigDecimal("19.99"),
+                "Country 1",
+                "Producer 1",
+                "Collection 1",
+                "Type 1",
+                "Tone 1",
+                "Room 1",
+                "Description 1",
+                Collections.emptyList()
+        );
     }
 
     private List<ProductResponseDto> generateProductResponseDtoListForPriceRange() {
