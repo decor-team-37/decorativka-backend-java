@@ -17,6 +17,8 @@
 		<java.version>17</java.version>
 		<maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
 		<jjwt.version>0.12.5</jjwt.version>
+		<citrus.version>3.4.0</citrus.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -116,6 +118,52 @@
 			<artifactId>spring-boot-starter-cache</artifactId>
 			<version>3.2.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-spring</artifactId>
+			<version>${citrus.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-http</artifactId>
+			<version>${citrus.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-java-dsl</artifactId>
+			<version>${citrus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-junit5</artifactId>
+			<version>${citrus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-core</artifactId>
+			<version>${citrus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>1.19.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.consol.citrus</groupId>
+			<artifactId>citrus-testng</artifactId>
+			<version>${citrus.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -185,6 +233,7 @@
 					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>
