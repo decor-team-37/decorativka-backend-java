@@ -1,6 +1,7 @@
 package teamproject.decorativka.service;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import teamproject.decorativka.dto.product.ProductCreateRequestDto;
 import teamproject.decorativka.dto.product.ProductResponseDto;
@@ -10,7 +11,7 @@ import teamproject.decorativka.search.ProductSearchParameters;
 public interface ProductService {
     ProductResponseDto createProduct(ProductCreateRequestDto requestDto);
 
-    List<ProductResponseDto> getAllProducts(Pageable pageable);
+    Page<ProductResponseDto> getAllProducts(Pageable pageable);
 
     ProductResponseDto getProduct(Long id);
 
@@ -20,7 +21,10 @@ public interface ProductService {
 
     List<Product> getAllByIds(List<Long> ids);
 
-    List<ProductResponseDto> search(ProductSearchParameters searchParameters, Pageable pageable);
+    Page<ProductResponseDto> search(ProductSearchParameters searchParameters, Pageable pageable);
 
-    List<ProductResponseDto> getAllProductsByCategoryId(Long id);
+    Page<ProductResponseDto> getAllProductsByCategoryId(Long id,
+                                                        Pageable pageable
+    );
 }
+

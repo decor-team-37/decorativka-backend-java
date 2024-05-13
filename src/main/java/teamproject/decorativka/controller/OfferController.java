@@ -3,8 +3,8 @@ package teamproject.decorativka.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,14 +35,14 @@ public class OfferController {
     @Parameter(name = "size", description = "describes count element per page",
             required = true, example = "10")
     @GetMapping
-    public List<OfferResponseDto> getAllOffers(Pageable pageable) {
+    public Page<OfferResponseDto> getAllOffers(Pageable pageable) {
         return offerService.getAllOffers(pageable);
     }
 
     @Operation(summary = "Search offers (services) for specific parameters",
             description = "Get all offers, which have certain params: name")
     @GetMapping("/search")
-    public List<OfferResponseDto> getAllBySearchParams(OfferSearchParameters searchParameters,
+    public Page<OfferResponseDto> getAllBySearchParams(OfferSearchParameters searchParameters,
                                                        Pageable pageable) {
         return offerService.search(searchParameters, pageable);
     }
@@ -50,7 +50,7 @@ public class OfferController {
     @Operation(summary = "Get all offers (services) by type id",
             description = "Get list of all not deleted offers by type id")
     @GetMapping("/type/{id}")
-    public List<OfferResponseDto> getAllByTypeId(@PathVariable Long id) {
-        return offerService.getAllOfferByTypeId(id);
+    public Page<OfferResponseDto> getAllByCategoryId(@PathVariable Long id, Pageable pageable) {
+        return offerService.getAllOfferByTypeId(id, pageable);
     }
 }

@@ -3,8 +3,8 @@ package teamproject.decorativka.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,7 @@ public class ProductController {
             required = true, example = "10")
     @Parameter(name = "sort", description = "add sort for schema field", example = "sort=price")
     @GetMapping
-    public List<ProductResponseDto> getAllProducts(Pageable pageable) {
+    public Page<ProductResponseDto> getAllProducts(Pageable pageable) {
         return productService.getAllProducts(pageable);
     }
 
@@ -44,14 +44,17 @@ public class ProductController {
             description = "Get all products, which have certain params: "
                     + "name, price, country, producer, collection, tone, room, type")
     @GetMapping("/search")
-    public List<ProductResponseDto> getAllBySearchParams(ProductSearchParameters searchParameters,
+    public Page<ProductResponseDto> getAllBySearchParams(ProductSearchParameters searchParameters,
                                                          Pageable pageable) {
         return productService.search(searchParameters, pageable);
     }
 
     @Operation(summary = "Get all product by category id")
     @GetMapping("/all/{id}")
-    public List<ProductResponseDto> getAllProductsByCategoryId(@PathVariable Long id) {
-        return productService.getAllProductsByCategoryId(id);
+    public Page<ProductResponseDto> getAllProductsByCategoryId(
+            @PathVariable Long id,
+            Pageable pageable
+    ) {
+        return productService.getAllProductsByCategoryId(id,pageable);
     }
 }

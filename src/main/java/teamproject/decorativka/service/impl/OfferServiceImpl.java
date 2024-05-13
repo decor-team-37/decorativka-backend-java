@@ -1,8 +1,8 @@
 package teamproject.decorativka.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -38,10 +38,9 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDto> getAllOffers(Pageable pageable) {
-        return offerRepository.findAll(pageable).stream()
-                .map(offerMapper::toDto)
-                .toList();
+    public Page<OfferResponseDto> getAllOffers(Pageable pageable) {
+        return offerRepository.findAll(pageable)
+             .map(offerMapper::toDto);
     }
 
     @Override
@@ -57,19 +56,18 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDto> search(OfferSearchParameters searchParameters,
+    public Page<OfferResponseDto> search(OfferSearchParameters searchParameters,
                                          Pageable pageable) {
         Specification<Offer> offerSpecification
                 = searchService.buildOfferSpecification(searchParameters);
-        return offerRepository.findAll(offerSpecification, pageable).stream()
-                .map(offerMapper::toDto)
-                .toList();
+        return offerRepository.findAll(offerSpecification, pageable)
+                .map(offerMapper::toDto);
     }
 
     @Override
-    public List<OfferResponseDto> getAllOfferByTypeId(Long id) {
+    public Page<OfferResponseDto> getAllOfferByTypeId(Long id, Pageable pageable) {
         resolveType(id);
-        return offerRepository.getAllByTypeId(id).stream().map(offerMapper::toDto).toList();
+        return offerRepository.getAllByTypeId(id, pageable).map(offerMapper::toDto);
     }
 
     private Offer getOffer(Long id) {
