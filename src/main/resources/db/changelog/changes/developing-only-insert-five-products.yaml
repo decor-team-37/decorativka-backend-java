@@ -31,6 +31,9 @@ databaseChangeLog:
                   name: room
                   value: Living Room
               - column:
+                  name: code
+                  value: ABC123
+              - column:
                   name: description
                   value: Durable and washable paint for walls and ceilings, perfect for busy areas.
               - column:
@@ -48,6 +51,9 @@ databaseChangeLog:
               - column:
                   name: country
                   value: United Kingdom
+              - column:
+                  name: code
+                  value: ABC1234
               - column:
                   name: price
                   value: 49.99
@@ -88,6 +94,9 @@ databaseChangeLog:
                   name: price
                   value: 19.99
               - column:
+                  name: code
+                  value: ABC12345
+              - column:
                   name: producer
                   value: Graham & Brown
               - column:
@@ -127,6 +136,9 @@ databaseChangeLog:
                   name: producer
                   value: Laura Ashley
               - column:
+                  name: code
+                  value: ABC12
+              - column:
                   name: collection
                   value: Josette
               - column:
@@ -159,6 +171,9 @@ databaseChangeLog:
               - column:
                   name: price
                   value: 399.99
+              - column:
+                  name: code
+                  value: Ab
               - column:
                   name: producer
                   value: Tikkurila
@@ -196,6 +211,9 @@ databaseChangeLog:
                   name: price
                   value: 59.99
               - column:
+                  name: code
+                  value: none
+              - column:
                   name: producer
                   value: Grandeco
               - column:
@@ -232,6 +250,9 @@ databaseChangeLog:
                   name: price
                   value: 149.99
               - column:
+                  name: code
+                  value: Anog
+              - column:
                   name: producer
                   value: Ceresit
               - column:
@@ -255,6 +276,363 @@ databaseChangeLog:
               - column:
                   name: category_id
                   valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Фарба для стін "Dulux Барвиста"
+              - column:
+                  name: country
+                  value: Нідерланди
+              - column:
+                  name: price
+                  value: 299.99
+              - column:
+                  name: code
+                  value: Cd
+              - column:
+                  name: producer
+                  value: Dulux
+              - column:
+                  name: collection
+                  value: Барвиста
+              - column:
+                  name: tone
+                  value: Синій
+              - column:
+                  name: type
+                  value: Фарба
+              - column:
+                  name: room
+                  value: Спальня
+              - column:
+                  name: description
+                  value: Водорозчинна фарба для стін, стійка до витирання, легко наноситься.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Паркет "Kährs Інтеріо"
+              - column:
+                  name: country
+                  value: Швеція
+              - column:
+                  name: price
+                  value: 599.99
+              - column:
+                  name: code
+                  value: Kp
+              - column:
+                  name: producer
+                  value: Kährs
+              - column:
+                  name: collection
+                  value: Інтеріо
+              - column:
+                  name: type
+                  value: Паркет
+              - column:
+                  name: room
+                  value: Підлога
+              - column:
+                  name: description
+                  value: Натуральний паркет з натурального дерева, висока міцність та естетика.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Тепла підлога "Devex"
+              - column:
+                  name: country
+                  value: Україна
+              - column:
+                  name: price
+                  value: 199.99
+              - column:
+                  name: code
+                  value: Tu
+              - column:
+                  name: producer
+                  value: Devex
+              - column:
+                  name: type
+                  value: Тепла підлога
+              - column:
+                  name: room
+                  value: Ванна
+              - column:
+                  name: description
+                  value: Електрична тепла підлога для комфортного та рівномірного обігріву підлоги.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Ламінат "Pergo Класичний"
+              - column:
+                  name: country
+                  value: Німеччина
+              - column:
+                  name: price
+                  value: 349.99
+              - column:
+                  name: code
+                  value: Lp
+              - column:
+                  name: producer
+                  value: Pergo
+              - column:
+                  name: collection
+                  value: Класичний
+              - column:
+                  name: type
+                  value: Ламінат
+              - column:
+                  name: room
+                  value: Кухня
+              - column:
+                  name: description
+                  value: Ламіновані дошки з натуральним дерев'яним візерунком, легкі в укладанні та догляді.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Керамічна плитка "Cersanit Мармурова"
+              - column:
+                  name: country
+                  value: Польща
+              - column:
+                  name: price
+                  value: 249.99
+              - column:
+                  name: code
+                  value: Cp
+              - column:
+                  name: producer
+                  value: Cersanit
+              - column:
+                  name: collection
+                  value: Мармурова
+              - column:
+                  name: type
+                  value: Плитка
+              - column:
+                  name: room
+                  value: Ванна
+              - column:
+                  name: description
+                  value: Керамічна плитка з імітацією мармуру, водонепроникна та морозостійка.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Паркет "Balterio Класичний дуб"
+              - column:
+                  name: country
+                  value: Бельгія
+              - column:
+                  name: price
+                  value: 499.99
+              - column:
+                  name: code
+                  value: Bp
+              - column:
+                  name: producer
+                  value: Balterio
+              - column:
+                  name: collection
+                  value: Класичний дуб
+              - column:
+                  name: type
+                  value: Паркет
+              - column:
+                  name: room
+                  value: Гостьова
+              - column:
+                  name: description
+                  value: Паркет з натурального дуба з високою зносостійкістю та екологічною чистотою.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Вікна "Rehau Euro-Design 70"
+              - column:
+                  name: country
+                  value: Німеччина
+              - column:
+                  name: price
+                  value: 799.99
+              - column:
+                  name: code
+                  value: Rw
+              - column:
+                  name: producer
+                  value: Rehau
+              - column:
+                  name: collection
+                  value: Euro-Design 70
+              - column:
+                  name: type
+                  value: Вікна
+              - column:
+                  name: room
+                  value: Кабінет
+              - column:
+                  name: description
+                  value: Пластикові вікна з високими енергозберігаючими та звукоізоляційними характеристиками.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Двері "Porta Nova Сучасні"
+              - column:
+                  name: country
+                  value: Італія
+              - column:
+                  name: price
+                  value: 899.99
+              - column:
+                  name: code
+                  value: Dp
+              - column:
+                  name: producer
+                  value: Porta Nova
+              - column:
+                  name: collection
+                  value: Сучасні
+              - column:
+                  name: type
+                  value: Двері
+              - column:
+                  name: room
+                  value: Вхідні
+              - column:
+                  name: description
+                  value: Модернові двері з якісних матеріалів з ексклюзивним дизайном та високою стійкістю.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Кондиціонер "Mitsubishi Electric MSZ-AP25VGK/MUZ-AP25VG"
+              - column:
+                  name: country
+                  value: Японія
+              - column:
+                  name: price
+                  value: 1299.99
+              - column:
+                  name: code
+                  value: Km
+              - column:
+                  name: producer
+                  value: Mitsubishi Electric
+              - column:
+                  name: type
+                  value: Кондиціонер
+              - column:
+                  name: room
+                  value: Всі
+              - column:
+                  name: description
+                  value: Інверторний кондиціонер з пультом дистанційного керування, енергоефективний та тихий у роботі.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 1
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: Сантехніка "Grohe Essence"
+              - column:
+                  name: country
+                  value: Німеччина
+              - column:
+                  name: price
+                  value: 499.99
+              - column:
+                  name: code
+                  value: Sg
+              - column:
+                  name: producer
+                  value: Grohe
+              - column:
+                  name: collection
+                  value: Essence
+              - column:
+                  name: type
+                  value: Сантехніка
+              - column:
+                  name: room
+                  value: Ванна
+              - column:
+                  name: description
+                  value: Високоякісна сантехніка з сучасним дизайном та надійною функціональністю.
+              - column:
+                  name: deleted
+                  valueBoolean: false
+              - column:
+                  name: category_id
+                  valueNumeric: 2
   - changeSet:
       id: insert-offer-images
       author: antonbabych
@@ -268,6 +646,88 @@ databaseChangeLog:
               - column:
                   name: image_url
                   value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images10
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images20
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images30
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images40
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images50
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images60
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: image_url
+                  value: "https://www.ua-bud.com.ua/wp-content/uploads/2020/11/kraska.-farba.jpg"
+  - changeSet:
+      id: insert-offer-images12
+      author: antonbabych
+      changes:
         - insert:
             tableName: product_images
             columns:
@@ -277,6 +737,89 @@ databaseChangeLog:
               - column:
                   name: image_url
                   value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images13
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images14
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images15
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images16
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images17
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+  - changeSet:
+      id: insert-offer-images18
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2460371232_w600_h600_2460371232.jpg"
+
+  - changeSet:
+      id: insert-offer-images2
+      author: antonbabych
+      changes:
         - insert:
             tableName: product_images
             columns:
@@ -285,7 +828,90 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: image_url
-                  value: "https://images.prom.ua/2399672584_w640_h640_kraska-interernaya-seraya.jpg"
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images21
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images22
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images23
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images24
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+
+  - changeSet:
+      id: insert-offer-images254
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images26
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: image_url
+                  value: "https://s.decorshop.ua/img/cat/3d-plitka-napolnaya-mi.jpg"
+  - changeSet:
+      id: insert-offer-images3
+      author: antonbabych
+      changes:
         - insert:
             tableName: product_images
             columns:
@@ -294,4 +920,551 @@ databaseChangeLog:
                   value: 4
               - column:
                   name: image_url
-                  value: "https://www.hobby.dn.ua/images/catalog/arcus/big/370.jpg"
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images31
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images32
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images33
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images34
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images35
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images36
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/2796539230_w600_h600_2796539230.jpg"
+  - changeSet:
+      id: insert-offer-images4
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images419
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images411
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images41
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images412
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images413
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: image_url
+                  value: "https://okoloremonta.ua/content/uploads/images/blog_al_enamel_main.jpg"
+  - changeSet:
+      id: insert-offer-images51
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images52
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images53
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images54
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images55
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images56
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 6
+              - column:
+                  name: image_url
+                  value: "https://images.prom.ua/5103445754_w640_h640_kraska-dlya-dorozhnoj.jpg"
+  - changeSet:
+      id: insert-offer-images61
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images62
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images63
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images64
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images65
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images66
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 7
+              - column:
+                  name: image_url
+                  value: "https://cdn.27.ua/799/0b/86/6294406_2.jpeg"
+  - changeSet:
+      id: insert-offer-images7
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+
+  - changeSet:
+      id: insert-offer-images71
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+  - changeSet:
+      id: insert-offer-images72
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+  - changeSet:
+      id: insert-offer-images73
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+  - changeSet:
+      id: insert-offer-images74
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+  - changeSet:
+      id: insert-offer-images75
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 8
+              - column:
+                  name: image_url
+                  value: "https://aura.if.ua/image/cache/catalog/rephoto/antikvax/aurama%CC%88stare5l-800x800.jpg"
+  - changeSet:
+      id: insert-offer-images8
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images81
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images82
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images83
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images84
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images85
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 9
+              - column:
+                  name: image_url
+                  value: "https://sellmax.com.ua/image/cache/catalog/image/cache/catalog/products/png/kraska/molotkova-min-1500x1100.webp"
+  - changeSet:
+      id: insert-offer-images9
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"
+  - changeSet:
+      id: insert-offer-images91
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"
+  - changeSet:
+      id: insert-offer-images92
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"
+  - changeSet:
+      id: insert-offer-images93
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"
+  - changeSet:
+      id: insert-offer-images94
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"
+  - changeSet:
+      id: insert-offer-images95
+      author: antonbabych
+      changes:
+        - insert:
+            tableName: product_images
+            columns:
+              - column:
+                  name: product_id
+                  value: 10
+              - column:
+                  name: image_url
+                  value: "https://fortis.kh.ua/wp-content/uploads/elementor/thumbs/photo_5242355649373912216_y-puer18lfo4v6cc15kn5q6x83xgjpe90ed88aylz7p4.jpg"

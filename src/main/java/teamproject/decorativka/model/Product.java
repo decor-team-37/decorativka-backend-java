@@ -38,6 +38,8 @@ public class Product {
     private String tone;
     private String type;
     private String room;
+    @Column(nullable = false, unique = true)
+    private String code;
     @Column(nullable = false)
     private String description;
     @ElementCollection

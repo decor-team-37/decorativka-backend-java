@@ -37,6 +37,7 @@ public class ProductServiceTest {
     private static final String VALID_TONE = "Dark";
     private static final String VALID_TYPE = "Decorative";
     private static final String VALID_ROOM = "General room";
+    private static final String VALID_CODE = "ABC123";
     private static final String VALID_DESCRIPTION = "This is valid description";
     private static final List<String> VALID_IMAGES_URLS = List.of("https://example.com/image1.jpg",
             "https://example.com/image2.jpg",
@@ -63,6 +64,7 @@ public class ProductServiceTest {
         product.setTone(VALID_TONE);
         product.setImageUrl(VALID_IMAGES_URLS);
         product.setProducer(VALID_PRODUCER);
+        product.setCode(VALID_CODE);
         product.setCategory(createValidCategory());
         return product;
     }
@@ -85,6 +87,7 @@ public class ProductServiceTest {
                 VALID_COLLECTION,
                 VALID_TONE,
                 VALID_TYPE,
+                VALID_CODE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
                 VALID_IMAGES_URLS
@@ -100,6 +103,7 @@ public class ProductServiceTest {
                 VALID_PRODUCER,
                 VALID_COLLECTION,
                 VALID_TYPE,
+                VALID_CODE,
                 VALID_TONE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
@@ -117,6 +121,7 @@ public class ProductServiceTest {
                 VALID_PRODUCER,
                 VALID_COLLECTION,
                 VALID_TYPE,
+                VALID_CODE,
                 VALID_TONE,
                 VALID_ROOM,
                 VALID_DESCRIPTION,
