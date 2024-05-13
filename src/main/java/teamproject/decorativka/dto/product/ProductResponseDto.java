@@ -12,6 +12,7 @@ public record ProductResponseDto(
         String producer,
         String collection,
         String type,
+        String code,
         String tone,
         String room,
         String description,
