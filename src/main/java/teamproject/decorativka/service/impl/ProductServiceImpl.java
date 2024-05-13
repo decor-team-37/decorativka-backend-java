@@ -3,6 +3,7 @@ package teamproject.decorativka.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProducts(Pageable pageable) {
-        return productRepository.getAllByDeletedFalse(pageable).stream()
-                .map(productMapper::toDto)
-                .toList();
+    public Page<ProductResponseDto> getAllProducts(Pageable pageable) {
+        return productRepository.getAllByDeletedFalse(pageable).map(productMapper::toDto);
     }
 
     @Override
@@ -64,21 +63,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> search(ProductSearchParameters searchParameters,
+    public Page<ProductResponseDto> search(ProductSearchParameters searchParameters,
                                            Pageable pageable) {
         Specification<Product> productSpecification
                 = searchService.buildProductSpecification(searchParameters);
-        return productRepository.findAll(productSpecification, pageable).stream()
-                .map(productMapper::toDto)
-                .toList();
+        return productRepository.findAll(productSpecification, pageable)
+                .map(productMapper::toDto);
     }
 
     @Override
-    public List<ProductResponseDto> getAllProductsByCategoryId(Long id) {
+    public Page<ProductResponseDto> getAllProductsByCategoryId(
+            Long id,
+            Pageable pageable) {
         resolveCategory(id);
-        return productRepository.getAllByCategoryIdAndDeletedFalse(id).stream()
-                .map(productMapper::toDto)
-                .toList();
+        return productRepository
+                .getAllByCategoryIdAndDeletedFalse(id, pageable)
+                .map(productMapper::toDto);
     }
 
     private Product getProductById(Long id) {

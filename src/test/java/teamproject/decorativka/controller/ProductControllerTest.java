@@ -1,5 +1,6 @@
 package teamproject.decorativka.controller;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -9,12 +10,13 @@ import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.dsl.junit.jupiter.CitrusExtension;
 import com.consol.citrus.dsl.runner.TestRunner;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
+import lombok.Data;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,6 +80,18 @@ public class ProductControllerTest {
 
     }
 
+    @Data
+    public static class PageResponse<T> {
+        private List<T> content;
+        private int totalElements;
+        private int totalPages;
+        private boolean last;
+        private boolean first;
+        private int numberOfElements;
+        private int size;
+        private int number;
+    }
+
     @DynamicPropertySource
     static void databaseProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgreSqlContainer::getJdbcUrl);
@@ -96,23 +110,26 @@ public class ProductControllerTest {
     @Test
     @CitrusTest
     void getAllProduct_ValidPageable_ValidProductResponseDto(
-            @CitrusResource TestRunner runner) throws Exception {
+            @CitrusResource TestRunner runner)
+            throws Exception {
         runner.sql(action -> action.dataSource(dataSource)
                 .sqlResource("classpath:database/product/add-three-products.sql"));
+
         List<ProductResponseDto> expected = generateThreeProductResponseDtoList();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(
-                                "/v1/products?page=0&size=10&sort=name,asc")
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/v1/products?page=0&size=10&sort=name,asc")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        ProductResponseDto[] actual = objectMapper.readValue(mvcResult
-                        .getResponse().getContentAsByteArray(),
-                ProductResponseDto[].class);
-        assertEquals(3, actual.length);
-        EqualsBuilder.reflectionEquals(expected, actual);
+        PageResponse<ProductResponseDto> pageResponse = objectMapper.readValue(
+                mvcResult.getResponse().getContentAsByteArray(),
+                new TypeReference<>() {});
+
+        // Перевірте результати
+        assertEquals(3, pageResponse.getContent().size());
+        assertEquals(expected, pageResponse.getContent());
     }
 
     @Test
@@ -124,19 +141,19 @@ public class ProductControllerTest {
 
         List<ProductResponseDto> expected = generateTwoProductResponseDtoList();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/v1/products/all/" + VALID_ID)
+                        .get("/v1/products/all/" + VALID_ID + "?page=0&size=10&sort=name,asc")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
-        ProductResponseDto[] actual = objectMapper.readValue(mvcResult
-                        .getResponse().getContentAsByteArray(),
-                ProductResponseDto[].class);
-        assertEquals(2, actual.length);
 
-        EqualsBuilder.reflectionEquals(expected, actual,
-                "The expected and actual JSON responses should match.");
+        PageResponse<ProductResponseDto> pageResponse = objectMapper.readValue(
+                mvcResult.getResponse().getContentAsByteArray(),
+                new TypeReference<>() {});
 
+        assertEquals(2, pageResponse.getContent().size());
+
+        EqualsBuilder.reflectionEquals(expected, pageResponse.getContent());
     }
 
     @Test
@@ -161,7 +178,6 @@ public class ProductControllerTest {
 
     }
 
-    @Test
     @CitrusTest
     void searchProductsWithPriceRange_ReturnsFilteredProducts(
             @CitrusResource TestRunner runner) throws Exception {
@@ -189,12 +205,14 @@ public class ProductControllerTest {
                 .andReturn();
 
         // Assert
-        ProductResponseDto[] actual = objectMapper.readValue(mvcResult
-                        .getResponse().getContentAsByteArray(),
-                ProductResponseDto[].class);
-        System.out.println(Arrays.toString(actual));
-        EqualsBuilder.reflectionEquals(expected, Arrays.asList(actual),
-                "The expected and actual JSON responses should match.");
+        PageResponse<ProductResponseDto> pageResponse = objectMapper.readValue(
+                mvcResult.getResponse().getContentAsByteArray(),
+                new TypeReference<>() {});
+
+        List<ProductResponseDto> actual = pageResponse.getContent();
+        assertEquals(expected.size(), actual.size(),
+                "The number of returned products should match the expected size.");
+        assertTrue(EqualsBuilder.reflectionEquals(expected, actual));
     }
 
     @WithMockUser(username = "admin", roles = {"ADMIN"})

@@ -6,7 +6,7 @@ public record OfferResponseDto(
         Long id,
         String name,
         String description,
-        Long typeId,
+        Long categoryId,
         List<String> imageUrl
 ) {
 }

@@ -126,9 +126,9 @@ public class OfferServiceTest {
         when(offerRepository.findAll(pageable)).thenReturn(offerPage);
         when(offerMapper.toDto(createValidOffer())).thenReturn(createValidResponseDto());
 
-        List<OfferResponseDto> actual = offerService.getAllOffers(pageable);
+        Page<OfferResponseDto> actual = offerService.getAllOffers(pageable);
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.getContent());
     }
 
     @Test
