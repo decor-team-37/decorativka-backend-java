@@ -59,4 +59,18 @@ public class ProductSpecification {
                 ? null : product.get("room").in(rooms);
     }
 
+    public static Specification<Product> hasCode(List<String> codes) {
+        return (product, cq, cb) -> codes == null || codes.isEmpty()
+                ? null : product.get("code").in(codes);
+    }
+
+    public static Specification<Product> hasCategoryId(List<Long> categoryIds) {
+        return (product, cq, cb) -> categoryIds == null || categoryIds.isEmpty()
+                ? null : product.get("category").get("id").in(categoryIds);
+    }
+
+    public static Specification<Product> hasId(List<Long> ids) {
+        return (product, cq, cb) -> ids == null || ids.isEmpty()
+                ? null : product.get("id").in(ids);
+    }
 }
