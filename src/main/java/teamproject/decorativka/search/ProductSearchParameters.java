@@ -15,4 +15,7 @@ public class ProductSearchParameters implements SearchParameters {
     private List<String> tone;
     private List<String> type;
     private List<String> room;
+    private List<String> code;
+    private List<Long> categoryId;
+    private List<Long> id;
 }

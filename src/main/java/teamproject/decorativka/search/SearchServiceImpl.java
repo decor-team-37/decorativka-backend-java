@@ -11,8 +11,15 @@ import teamproject.decorativka.repository.product.ProductSpecification;
 public class SearchServiceImpl implements SearchService {
     public Specification<Offer> buildOfferSpecification(OfferSearchParameters params) {
         Specification<Offer> spec = Specification.where(null);
-        if (params.getName() != null) {
+
+        if (params.getName() != null && !params.getName().isEmpty()) {
             spec = spec.and(OfferSpecification.hasName(params.getName()));
+        }
+        if (params.getCategoryId() != null && !params.getCategoryId().isEmpty()) {
+            spec = spec.and(OfferSpecification.hasCategoryId(params.getCategoryId()));
+        }
+        if (params.getId() != null && !params.getId().isEmpty()) {
+            spec = spec.and(OfferSpecification.hasId(params.getId()));
         }
         return spec;
     }
@@ -44,6 +51,15 @@ public class SearchServiceImpl implements SearchService {
         }
         if (params.getRoom() != null && !params.getRoom().isEmpty()) {
             spec = spec.and(ProductSpecification.hasRoom(params.getRoom()));
+        }
+        if (params.getCode() != null && !params.getCode().isEmpty()) {
+            spec = spec.and(ProductSpecification.hasCode(params.getCode()));
+        }
+        if (params.getCategoryId() != null && !params.getCategoryId().isEmpty()) {
+            spec = spec.and(ProductSpecification.hasCategoryId(params.getCategoryId()));
+        }
+        if (params.getId() != null && !params.getId().isEmpty()) {
+            spec = spec.and(ProductSpecification.hasId(params.getId()));
         }
         return spec;
     }
