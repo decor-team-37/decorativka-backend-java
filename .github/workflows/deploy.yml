@@ -1,54 +1,60 @@
-name: Deploy to AWS
+name: Deploy to EC2
 
 on:
   push:
     branches:
       - main
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Login to Amazon ECR
+      - name: Log in to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build and push Docker image to Amazon ECR
+      - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
-          # Build the Docker image
-          docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+          REPOSITORY_URI=public.ecr.aws/w1y4f3c3/decorativka
+          TAG=latest
+          
+          docker build -t $REPOSITORY_URI:$TAG .
+          docker push $REPOSITORY_URI:$TAG
 
-          # Tag the image for ECR
-          docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
-
-          # Push the image to ECR
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Deploy to Amazon ECS
-        run: |
-          ecs-cli configure --cluster decorativka-cluster --default-launch-type FARGATE --config-name decorativka --region ${{ secrets.AWS_REGION }}
-          ecs-cli configure profile --access-key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret-key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile-name decorativka-profile
-          ecs-cli compose --file docker-compose.yml --project-name decorativka service up --create-log-groups --cluster-config decorativka --ecs-profile decorativka-profile
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker pull public.ecr.aws/w1y4f3c3/decorativka:latest
+            docker run -d -p 80:8080 \
+              -e SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} \
+              -e SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
+              -e SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }} \
+              -e JWT_EXPIRATION_TIME=${{ secrets.JWT_EXPIRATION_TIME }} \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+              -e MAIL_HOST=${{ secrets.MAIL_HOST }} \
+              -e MAIL_PORT=${{ secrets.MAIL_PORT }} \
+              -e MAIL_USERNAME=${{ secrets.MAIL_USERNAME }} \
+              -e MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }} \
+              -e SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH }} \
+              -e SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE }} \
+              -e TELEGRAMBOT_BOT_USERNAME=${{ secrets.TELEGRAMBOT_BOT_USERNAME }} \
+              -e TELEGRAMBOT_BOT_TOKEN=${{ secrets.TELEGRAMBOT_BOT_TOKEN }} \
+              -e TELEGRAMBOT_BOT_PATH=${{ secrets.TELEGRAMBOT_BOT_PATH }} \
+              -e NOVA_POSHTA_API_KEY=${{ secrets.NOVA_POSHTA_API_KEY }} \
+              -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+              -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+              -e SERVER_SERVLET_CONTEXT_PATH=${{ secrets.SERVER_SERVLET_CONTEXT_PATH }} \
+              public.ecr.aws/w1y4f3c3/decorativka:latest
