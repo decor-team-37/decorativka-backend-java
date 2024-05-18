@@ -33,7 +33,7 @@ jobs:
       - name: Log in to Amazon ECR
         id: login-ecr
         run: |
-          aws ecr-public get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws/w1y4f3c3
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
@@ -42,8 +42,8 @@ jobs:
           TAG=latest
           
           docker build -t $REPOSITORY_URI:$TAG .
-          docker tag $REPOSITORY_URI:$TAG public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
-          docker push public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
+          docker tag $REPOSITORY_URI:$TAG $REPOSITORY_URI:$TAG
+          docker push $REPOSITORY_URI:$TAG
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
