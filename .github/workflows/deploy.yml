@@ -39,9 +39,14 @@ jobs:
       - name: Log in to Amazon ECR
         id: login-ecr
         run: |
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}" >> $GITHUB_ENV
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
         env:
           DOCKER_OPTS: --dns 8.8.8.8
+
+      - name: Test ECR repository URL
+        run: echo ${{ secrets.ECR_REPOSITORY }}
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
