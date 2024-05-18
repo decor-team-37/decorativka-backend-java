@@ -23,20 +23,24 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Log in to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws ecr-public get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws/w1y4f3c3
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
           REPOSITORY_URI=${{ secrets.ECR_REPOSITORY }}
           TAG=latest
-            
+          
           docker build -t $REPOSITORY_URI:$TAG .
           docker tag $REPOSITORY_URI:$TAG public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
           docker push public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
