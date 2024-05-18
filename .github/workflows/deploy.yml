@@ -54,8 +54,8 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
+            docker stop $(docker ps -a -q) || true
+            docker rm $(docker ps -a -q) || true
             docker pull public.ecr.aws/w1y4f3c3/decorativka:latest
             docker run -d -p 80:8080 \
               -e SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} \
