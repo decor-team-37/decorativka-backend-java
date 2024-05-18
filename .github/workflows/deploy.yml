@@ -52,10 +52,11 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
+          port: 22
           script: |
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker pull ${{ secrets.ECR_REPOSITORY }}:latest
+            docker pull public.ecr.aws/w1y4f3c3/decorativka:latest
             docker run -d -p 80:8080 \
               -e SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} \
               -e SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
@@ -75,4 +76,4 @@ jobs:
               -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
               -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
               -e SERVER_SERVLET_CONTEXT_PATH=${{ secrets.SERVER_SERVLET_CONTEXT_PATH }} \
-              ${{ secrets.ECR_REPOSITORY }}:latest
+              public.ecr.aws/w1y4f3c3/decorativka:latest
