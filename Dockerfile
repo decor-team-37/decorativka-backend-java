@@ -14,3 +14,4 @@ COPY --from=builder application/snapshot-dependencies/ ./
 COPY --from=builder application/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
 EXPOSE 8080
+LABEL app=decorativka
