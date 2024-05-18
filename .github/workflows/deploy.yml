@@ -34,11 +34,12 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
-          echo "REPOSITORY_URI=${{ secrets.ECR_REPOSITORY }}" >> $GITHUB_ENV
-          echo "TAG=latest" >> $GITHUB_ENV
-          
-          docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
-          docker push ${{ secrets.ECR_REPOSITORY }}:latest
+          REPOSITORY_URI=${{ secrets.ECR_REPOSITORY }}
+          TAG=latest
+            
+          docker build -t $REPOSITORY_URI:$TAG .
+          docker tag $REPOSITORY_URI:$TAG public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
+          docker push public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
