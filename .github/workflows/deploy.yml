@@ -30,33 +30,25 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Check Docker version
-        run: docker version
-
-      - name: Check DNS settings
-        run: cat /etc/resolv.conf
-
       - name: Log in to Amazon ECR
         id: login-ecr
-        run: |
-          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
-          echo "ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}" >> $GITHUB_ENV
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
         env:
-          DOCKER_OPTS: --dns 8.8.8.8
-
-      - name: Test ECR repository URL
-        run: echo ${{ secrets.ECR_REPOSITORY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
           REPOSITORY_URI=${{ secrets.ECR_REPOSITORY }}
           TAG=latest
-          
+
           docker build -t $REPOSITORY_URI:$TAG .
-          docker tag $REPOSITORY_URI:$TAG $REPOSITORY_URI:$TAG
-          docker push $REPOSITORY_URI:$TAG
+          docker tag $REPOSITORY_URI:$TAG public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
+          docker push public.ecr.aws/w1y4f3c3/$REPOSITORY_URI:$TAG
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
