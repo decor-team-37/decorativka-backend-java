@@ -30,10 +30,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Check Docker version
+        run: docker version
+
+      - name: Check DNS settings
+        run: cat /etc/resolv.conf
+
       - name: Log in to Amazon ECR
         id: login-ecr
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+        env:
+          DOCKER_OPTS: --dns 8.8.8.8
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
