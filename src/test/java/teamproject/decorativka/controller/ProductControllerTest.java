@@ -51,6 +51,12 @@ public class ProductControllerTest {
     private static final CustomPostgreSqlContainer postgreSqlContainer
             = CustomPostgreSqlContainer.getInstance();
     private static MockMvc mockMvc;
+    @MockBean
+    private static JavaMailSender mailSender;
+    @MockBean
+    private static TelegramBot telegramBot;
+    @MockBean
+    private static NovaPoshtaCityParserService novaPoshtaCityParserService;
 
     @Autowired
     private DataSource dataSource;
@@ -58,13 +64,6 @@ public class ProductControllerTest {
     static {
         postgreSqlContainer.start();
     }
-
-    @MockBean
-    private JavaMailSender mailSender;
-    @MockBean
-    private TelegramBot telegramBot;
-    @MockBean
-    private NovaPoshtaCityParserService novaPoshtaCityParserService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -223,7 +222,7 @@ public class ProductControllerTest {
         ProductCreateRequestDto requestDto = createRequestDto();
         String request = objectMapper.writeValueAsString(requestDto);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/admin/product/new")
+                        .post("/admin/products/new")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isOk())
@@ -251,7 +250,7 @@ public class ProductControllerTest {
         String request = objectMapper.writeValueAsString(updateRequest);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/admin/product/update/" + productIdToUpdate)
+                        .post("/admin/products/update/" + productIdToUpdate)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isOk())
@@ -277,7 +276,7 @@ public class ProductControllerTest {
         runner.sql(action -> action.dataSource(dataSource)
                 .sqlResource("classpath:database/product/add-three-products.sql"));
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/admin/product/delete/" + productIdToDelete))
+                        .delete("/admin/products/delete/" + productIdToDelete))
                 .andExpect(status().isNoContent());
 
         runner.query(sqlAction -> sqlAction.dataSource(dataSource)

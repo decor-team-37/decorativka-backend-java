@@ -15,14 +15,14 @@ import teamproject.decorativka.service.NovaPoshtaCityParserService;
         description = "endpoint to get region and city in this region")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/city")
+@RequestMapping("/v1/cities")
 public class CityController {
     private final NovaPoshtaCityParserService novaPoshtaCityParserService;
 
     @Operation(summary = "Get city by region (area) name",
             description = "Отримати всі міста за назвою області. Приклад назви "
                     + " Сумська область")
-    @GetMapping("/cities/{areaName}")
+    @GetMapping("/{areaName}")
     public List<City> getCitiesByRegion(@PathVariable String areaName) {
         return novaPoshtaCityParserService.getCitiesByArea(areaName);
     }

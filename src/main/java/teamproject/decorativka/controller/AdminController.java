@@ -34,7 +34,8 @@ import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
 import teamproject.decorativka.service.TypeService;
 
-@Tag(name = "Controller for admin panel", description = "Endpoints for administrator")
+@Tag(name = "Controller for admin panel",
+        description = "Endpoints for administrator. Required authorization")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin")
@@ -53,14 +54,14 @@ public class AdminController {
     }
 
     @Operation(summary = "Create new product")
-    @PostMapping("/product/new")
+    @PostMapping("/products/new")
     public ProductResponseDto createNewProduct(
             @RequestBody @Valid ProductCreateRequestDto requestDto) {
         return productService.createProduct(requestDto);
     }
 
     @Operation(summary = "Update product info by product id")
-    @PostMapping("/product/update/{id}")
+    @PostMapping("/products/update/{id}")
     public ProductResponseDto updateProductInfo(
             @PathVariable Long id, @RequestBody @Valid ProductCreateRequestDto requestDto) {
         return productService.updateProduct(id, requestDto);
@@ -70,20 +71,20 @@ public class AdminController {
             description = "Soft delete specify product")
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/product/delete/{id}")
+    @DeleteMapping("/products/delete/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
 
     @Operation(summary = "Create new category")
-    @PostMapping("/category/new")
+    @PostMapping("/categories/new")
     public CategoryResponseDto createCategory(
             @RequestBody @Valid CategoryCreateRequestDto requestDto) {
         return categoryService.createCategory(requestDto);
     }
 
     @Operation(summary = "Update category by id")
-    @PostMapping("/category/update/{id}")
+    @PostMapping("/categories/update/{id}")
     public CategoryResponseDto updateCategory(
             @PathVariable Long id, @RequestBody CategoryCreateRequestDto requestDto) {
         return categoryService.updateCategory(id, requestDto);
@@ -92,20 +93,20 @@ public class AdminController {
     @Operation(summary = "Delete category by id",
             description = "Soft delete specify category")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/category/delete/{id}")
+    @DeleteMapping("/categories/delete/{id}")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
     }
 
     @Operation(summary = "Create new offer (service)")
-    @PostMapping("/offer/new")
+    @PostMapping("/offers/new")
     public OfferResponseDto createOffer(
             @RequestBody @Valid OfferCreateRequestDto requestDto) {
         return offerService.createOffer(requestDto);
     }
 
     @Operation(summary = "Update offer by id")
-    @PostMapping("offer/update/{id}")
+    @PostMapping("offers/update/{id}")
     public OfferResponseDto updateOffer(
             @PathVariable Long id, @RequestBody @Valid OfferCreateRequestDto requestDto) {
         return offerService.updateOffer(id, requestDto);
@@ -113,7 +114,7 @@ public class AdminController {
 
     @Operation(summary = "Delete offer by id",
             description = "Soft delete specify offer")
-    @DeleteMapping("/offer/delete/{id}")
+    @DeleteMapping("/offers/delete/{id}")
     public void deleteOffer(@PathVariable Long id) {
         offerService.deleteOffer(id);
     }
