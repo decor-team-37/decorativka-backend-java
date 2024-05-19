@@ -34,7 +34,8 @@ import teamproject.decorativka.service.OrderService;
 import teamproject.decorativka.service.ProductService;
 import teamproject.decorativka.service.TypeService;
 
-@Tag(name = "Controller for admin panel", description = "Endpoints for administrator. Required authorization")
+@Tag(name = "Controller for admin panel",
+        description = "Endpoints for administrator. Required authorization")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin")
