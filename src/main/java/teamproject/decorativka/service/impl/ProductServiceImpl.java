@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
                                            Pageable pageable) {
         Specification<Product> productSpecification
                 = searchService.buildProductSpecification(searchParameters);
-        return productRepository.findAll(productSpecification, pageable)
+        return productRepository.findAllAndDeletedFalse(productSpecification, pageable)
                 .map(productMapper::toDto);
     }
 
