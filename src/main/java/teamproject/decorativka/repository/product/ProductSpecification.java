@@ -73,4 +73,8 @@ public class ProductSpecification {
         return (product, cq, cb) -> ids == null || ids.isEmpty()
                 ? null : product.get("id").in(ids);
     }
+
+    public static Specification<Product> deletedFalse() {
+        return (product, cq, cb) -> cb.isFalse(product.get("deleted"));
+    }
 }
