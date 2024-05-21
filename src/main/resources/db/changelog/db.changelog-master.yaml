@@ -33,3 +33,7 @@ databaseChangeLog:
       file: db/changelog/changes/11-create-orders-table.yaml
   - include:
       file: db/changelog/changes/12-create-order-items-table.yaml
+  - include:
+      file: db/changelog/changes/13-add-uniq-constrains-to-product-name.yaml
+  - include:
+      file: db/changelog/changes/14-add-uniq-constrains-to-offer.yaml
