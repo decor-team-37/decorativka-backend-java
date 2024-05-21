@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-unique-constraint-to-offer-name
+      author: antonbabych
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            tableName: offers
+            constraintName: uq_offers_name
