@@ -37,3 +37,5 @@ databaseChangeLog:
       file: db/changelog/changes/13-add-uniq-constrains-to-product-name.yaml
   - include:
       file: db/changelog/changes/14-add-uniq-constrains-to-offer.yaml
+  - include:
+      file: db/changelog/changes/15-change-description-length-in-offers.yaml
