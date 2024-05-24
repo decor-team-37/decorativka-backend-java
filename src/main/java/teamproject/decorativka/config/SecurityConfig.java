@@ -27,6 +27,7 @@ import teamproject.decorativka.secutiry.JwtAuthenticationFilter;
 public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CspFilter cspFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -56,7 +57,7 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new CspFilter(), JwtAuthenticationFilter.class)
+                .addFilterAfter(cspFilter, JwtAuthenticationFilter.class)
                 .userDetailsService(userDetailsService)
                 .build();
     }
