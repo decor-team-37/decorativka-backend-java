@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import teamproject.decorativka.secutiry.CspFilter;
 import teamproject.decorativka.secutiry.CustomUserDetailsService;
 import teamproject.decorativka.secutiry.JwtAuthenticationFilter;
 
@@ -55,6 +56,7 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new CspFilter(), JwtAuthenticationFilter.class)
                 .userDetailsService(userDetailsService)
                 .build();
     }
@@ -71,7 +73,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization",
+                "Content-Type",
+                "Content-Security-Policy"));
+        configuration.setExposedHeaders(List.of("Content-Security-Policy"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
