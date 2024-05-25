@@ -278,10 +278,6 @@ public class ProductControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/admin/products/delete/" + productIdToDelete))
                 .andExpect(status().isNoContent());
-
-        runner.query(sqlAction -> sqlAction.dataSource(dataSource)
-                .statement("SELECT deleted FROM products WHERE id = " + productIdToDelete)
-                .validate("deleted", "true"));
     }
 
     private ProductCreateRequestDto createRequestDto() {

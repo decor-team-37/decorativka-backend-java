@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.SoftDelete;
 
-@SoftDelete
 @Data
 @Entity
 @Table(name = "offers")
@@ -37,4 +35,6 @@ public class Offer {
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "type_id", nullable = false)
     private Type type;
+    @Column(nullable = false)
+    private boolean deleted = false;
 }

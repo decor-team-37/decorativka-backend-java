@@ -28,7 +28,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public OfferResponseDto createOffer(OfferCreateRequestDto requestDto) {
         Offer offer = offerMapper.toModel(requestDto);
-        offer.setType(resolveType(requestDto.typeId()));
+        offer.setType(resolveType(requestDto.categoryId()));
         return offerMapper.toDto(offerRepository.save(offer));
     }
 
@@ -52,7 +52,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public void deleteOffer(Long id) {
-        offerRepository.deleteById(id);
+        offerRepository.deleteOfferById(id);
     }
 
     @Override

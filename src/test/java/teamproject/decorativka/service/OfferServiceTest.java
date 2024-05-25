@@ -152,6 +152,6 @@ public class OfferServiceTest {
     public void deleteOffer_ValidId_DeletedTrue() {
         offerService.deleteOffer(VALID_ID);
 
-        verify(offerRepository).deleteById(VALID_ID);
+        verify(offerRepository).deleteOfferById(VALID_ID);
     }
 }
