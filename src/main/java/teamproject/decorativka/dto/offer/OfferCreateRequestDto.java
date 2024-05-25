@@ -9,7 +9,7 @@ public record OfferCreateRequestDto(
         @NotNull
         String description,
         @NotNull
-        Long typeId,
+        Long categoryId,
         List<String> imageUrl
 ) {
 }

@@ -221,15 +221,10 @@ public class ProductServiceTest {
 
     @Test
     @DisplayName("Verify deleteProduct() method works")
-    public void deteleProduct_ValidId_DeletedTrue() {
-        Product expected = createValidProduct();
-        expected.setDeleted(true);
-        when(productRepository.findByIdAndDeletedFalse(VALID_ID))
-                .thenReturn(Optional.of(createValidProduct()));
-
+    public void deleteProduct_ValidId_DeletedTrue() {
         productService.deleteProduct(VALID_ID);
 
-        verify(productRepository).save(expected);
+        verify(productRepository).deleteById(VALID_ID);
     }
 
     @Test

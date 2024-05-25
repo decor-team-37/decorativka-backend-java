@@ -115,6 +115,7 @@ public class AdminController {
     @Operation(summary = "Delete offer by id",
             description = "Soft delete specify offer")
     @DeleteMapping("/offers/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOffer(@PathVariable Long id) {
         offerService.deleteOffer(id);
     }
