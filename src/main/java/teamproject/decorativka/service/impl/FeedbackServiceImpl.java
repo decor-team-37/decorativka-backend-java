@@ -37,6 +37,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         return "Нове звернення від користувача:\n"
                 + "Ім'я: " + requestDto.name() + "\n"
                 + "Email: " + requestDto.email() + "\n"
+                + "Номер телефону: " + requestDto.number() + "\n"
                 + "Коментар: " + requestDto.comment() + "\n";
     }
 }
