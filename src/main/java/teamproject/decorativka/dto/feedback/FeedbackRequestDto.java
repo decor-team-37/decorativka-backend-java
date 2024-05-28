@@ -11,7 +11,7 @@ public record FeedbackRequestDto(
         String email,
         @NotNull
         @Size(min = 10, max = 15)
-        String number,
+        String phoneNumber,
         String comment
 ) {
 }
