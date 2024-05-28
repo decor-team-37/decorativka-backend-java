@@ -52,7 +52,7 @@ public class EmailContentServiceImpl implements EmailContentService {
                 + "<p><strong>Коментар:</strong> "
                 + requestDto.comment() + "</p>"
                 + "<p><strong>Номер телефону:</strong> "
-                + requestDto.number() + "</p>"
+                + requestDto.phoneNumber() + "</p>"
                 + "<p>Дата та час отримання звернення: "
                 + LocalDateTime.now() + "</p>"
                 + "<p>Дякуємо за ваше повідомлення! "
