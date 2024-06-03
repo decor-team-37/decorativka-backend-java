@@ -2,6 +2,8 @@ package teamproject.decorativka.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +55,7 @@ public class OfferServiceTest {
         offer.setName(VALID_NAME);
         offer.setDescription(VALID_DESCRIPTION);
         offer.setImageUrl(VALID_IMAGES_URLS);
+        offer.setType(createValidType());
         return offer;
     }
 
@@ -73,6 +76,13 @@ public class OfferServiceTest {
                 VALID_ID,
                 VALID_IMAGES_URLS
         );
+    }
+
+    private Type createValidType() {
+        Type type = new Type();
+        type.setId(VALID_ID);
+        type.setName(VALID_NAME);
+        return type;
     }
 
     @Test
@@ -137,9 +147,11 @@ public class OfferServiceTest {
         Offer validOffer = createValidOffer();
         OfferCreateRequestDto validRequestDto = createValidRequestDto();
         OfferResponseDto expected = createValidResponseDto();
-        when(offerRepository.findById(VALID_ID))
-                .thenReturn(Optional.of(validOffer));
-        when(offerMapper.toDto(validOffer)).thenReturn(expected);
+
+        when(offerRepository.findById(VALID_ID)).thenReturn(Optional.of(validOffer));
+        when(offerRepository.save(any(Offer.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+        doReturn(expected).when(offerMapper).toDto(any(Offer.class));
 
         OfferResponseDto actual = offerService.updateOffer(VALID_ID, validRequestDto);
 

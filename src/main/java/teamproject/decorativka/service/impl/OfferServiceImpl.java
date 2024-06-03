@@ -1,6 +1,7 @@
 package teamproject.decorativka.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +48,8 @@ public class OfferServiceImpl implements OfferService {
     public OfferResponseDto updateOffer(Long id, OfferCreateRequestDto requestDto) {
         Offer offerToUpdate = getOffer(id);
         offerMapper.updateOfferFromDto(requestDto, offerToUpdate);
-        return offerMapper.toDto(offerToUpdate);
+        updateOfferTypeIfNecessary(offerToUpdate, requestDto.categoryId());
+        return offerMapper.toDto(offerRepository.save(offerToUpdate));
     }
 
     @Override
@@ -80,5 +82,11 @@ public class OfferServiceImpl implements OfferService {
         return typesRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find type with id: " + id)
         );
+    }
+
+    private void updateOfferTypeIfNecessary(Offer offer, Long newCategoryId) {
+        if (!Objects.equals(offer.getType().getId(), newCategoryId)) {
+            offer.setType(resolveType(newCategoryId));
+        }
     }
 }

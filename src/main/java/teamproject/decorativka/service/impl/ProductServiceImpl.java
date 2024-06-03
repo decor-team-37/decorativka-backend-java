@@ -2,6 +2,7 @@ package teamproject.decorativka.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto updateProduct(Long id, ProductCreateRequestDto requestDto) {
         Product productToUpdate = getProductById(id);
         productMapper.updateProductFromDto(requestDto, productToUpdate);
+        updateProductCategoryIfNecessary(productToUpdate, requestDto.categoryId());
         return productMapper.toDto(productRepository.save(productToUpdate));
     }
 
@@ -89,5 +91,11 @@ public class ProductServiceImpl implements ProductService {
         return categoryRepository.findByIdAndDeletedFalse(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find category with id: " + id)
         );
+    }
+
+    private void updateProductCategoryIfNecessary(Product product, Long newCategoryId) {
+        if (!Objects.equals(product.getCategory().getId(), newCategoryId)) {
+            product.setCategory(resolveCategory(newCategoryId));
+        }
     }
 }
